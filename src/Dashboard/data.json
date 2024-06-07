@@ -1,0 +1,43 @@
+{
+  "data": [
+    {
+      "classroom": {
+        "id": 1,
+        "name": "",
+        "chapters": [
+          {
+            "id": 1,
+            "lessons": [
+              {
+                "id": 1,
+                "pdf": ["lesson1_1.pdf", "lesson1_2.pdf"],
+                "video": ["lesson1_1.mp4", "lesson1_2.mp4"]
+              },
+              {
+                "id": 2,
+                "pdfs": ["lesson2_1.pdf"],
+                "videos": ["lesson2_1.mp4"]
+              },
+              {
+                "id": 3,
+                "pdfs": ["lesson3_1.pdf"],
+                "videos": ["lesson3_1.mp4"]
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "lessons": [{ "id": 1 }]
+          },
+          { "id": 3 }
+        ]
+      }
+    },
+    {
+      "classroom": { "id": 2 }
+    },
+    {
+      "classroom": { "id": 3 }
+    }
+  ]
+}

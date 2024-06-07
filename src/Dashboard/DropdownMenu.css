@@ -1,0 +1,71 @@
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  
+  }
+  
+  .classroom {
+    margin-bottom: 10px;
+  }
+  .classroom a{
+    padding: 10px 15px;
+    text-align: center;
+    background-color: rgb(190, 200, 200);
+  }
+  .chapters a{
+    padding: 8px 8px;
+    background-color: rgb(230, 249, 249);
+    margin: 3px 0;
+  }
+  .lessons a{
+    padding: 8px 0px;
+    background-color: rgb(213, 236, 236);
+    margin: 3px 0;
+  }
+
+  .classroom-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    width: 200px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .classroom-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .chapter-btn {
+    background-color: #008CBA;
+    color: white;
+    padding: 8px;
+    width: 180px;
+    border: none;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+  
+  .chapter-btn:hover {
+    background-color: #0077A7;
+  }
+  
+  .sub-dropdown {
+    display: none;
+  }
+  
+  .chapter:hover .sub-dropdown {
+    display: block;
+  }
+  
+  .lesson {
+    padding: 8px;
+    width: 160px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+  
+  .lesson:hover {
+    background-color: #ddd;
+  }
+  
