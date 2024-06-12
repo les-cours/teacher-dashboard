@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../firebase"; 
-import "./chapters.css";
+import { storage } from "../firebase";
+import styles from "./classrooms.module.css";
 import { LOAD_CLASSROOM_INFO } from "../GraphQl/Queries";
 // import { UPDATE_CLASSROOM } from "../GraphQl/Mutations";
 import { v4 as uuidv4 } from "uuid";
 
 function ClassroomUpdate() {
   let { classroomId } = useParams();
-  const { loading, error, data,refetch } = useQuery(LOAD_CLASSROOM_INFO, {
+  const { loading, error, data, refetch } = useQuery(LOAD_CLASSROOM_INFO, {
     variables: { classRoomID: classroomId },
   });
-//   const [updateClassroom] = useMutation(UPDATE_CLASSROOM);
+  //   const [updateClassroom] = useMutation(UPDATE_CLASSROOM);
   const [isEditable, setIsEditable] = useState(false);
   const [initialClassRoomData, setInitialClassRoomData] = useState(null);
   const [classRoomData, setClassRoomData] = useState({
@@ -104,19 +104,19 @@ function ClassroomUpdate() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="ClassroomUpdate" >
+    <div className={styles.ClassroomUpdate}>
       <div>
         <h2>قسم {classRoomData.arabicTitle}</h2>
       </div>
-      <div className="classroomImg">
+      <div className={styles.classroomImg}>
         {classRoomData.image ? (
-          <img src={classRoomData.image} alt="Classroom" />
+          <img src={classRoomData.image} alt="الفصل الدراسي" />
         ) : (
-          <p>No photo available</p>
+          <p>لا توجد صورة متاحة</p>
         )}
         <div>
           <input
-            className="chooseFileInput"
+            className={styles.chooseFileInput}
             type="file"
             disabled={!isEditable}
             onChange={(event) => {
@@ -127,77 +127,64 @@ function ClassroomUpdate() {
           />
         </div>
       </div>
-      <div className="classroom-info">
-        <div><label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={classRoomData.title}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        <div><label>Student Count:</label>
-        <input
-          type="number"
-          name="studentCount"
-          value={classRoomData.studentCount}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        <div><label>Price:</label>
-        <input
-          type="text"
-          name="price"
-          value={classRoomData.price}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        <div><label>Badge:</label>
-        <input
-          type="text"
-          name="badge"
-          value={classRoomData.badge}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        <div><label>Rating:</label>
-        <input
-          type="number"
-          name="rating"
-          value={classRoomData.rating}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        <div><label>Arabic Title:</label>
-        <input
-          type="text"
-          name="arabicTitle"
-          value={classRoomData.arabicTitle}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        <div><label>Description:</label>
-        <textarea
-          name="description"
-          value={classRoomData.description}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        <div><label>Arabic Description:</label>
-        <textarea
-          name="arabicDescription"
-          value={classRoomData.arabicDescription}
-          disabled={!isEditable}
-          onChange={handleInputChange}
-        /></div>
-        
+      <div className={styles.classroomInfo}>
+        <div>
+          <label>العنوان:</label>
+          <input
+            type="text"
+            name="title"
+            value={classRoomData.title}
+            disabled={!isEditable}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        <div>
+          <label>العنوان بالعربية:</label>
+          <input
+            type="text"
+            name="arabicTitle"
+            value={classRoomData.arabicTitle}
+            disabled={!isEditable}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>الوصف:</label>
+          <textarea
+            name="description"
+            value={classRoomData.description}
+            disabled={!isEditable}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>الوصف بالعربية:</label>
+          <textarea
+            name="arabicDescription"
+            value={classRoomData.arabicDescription}
+            disabled={!isEditable}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>السعر:</label>
+          <input
+            type="number"
+            name="price"
+            value={classRoomData.price}
+            disabled={!isEditable}
+            onChange={handleInputChange}
+          />
+        </div>
+
         {isEditable ? (
           <>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleIgnore}>Ignore</button>
+            <button onClick={handleSave}>حفظ</button>
+            <button onClick={handleIgnore}>تجاهل</button>
           </>
         ) : (
-          <button onClick={() => setIsEditable(true)}>Update</button>
+          <button onClick={() => setIsEditable(true)}>تحديث</button>
         )}
       </div>
     </div>

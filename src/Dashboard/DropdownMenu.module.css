@@ -65,6 +65,7 @@ body.dark-mode .dashboard {
   padding: 10px 20px;
   background-color: var(--secondary-color);
   color: var(--text-color-light);
+
   text-decoration: none;
   border-radius: 8px;
   margin-bottom: 4px;
@@ -115,19 +116,18 @@ body.dark-mode .dashboard {
 .lessonLink {
   display: block;
   padding: 8px 16px;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--text-color-light);
   text-decoration: none;
   border-radius: 8px;
   margin-bottom: 4px;
   transition: background-color 0.3s ease;
   font-size: 15px;
   transition: all 0.3s ease;
-  background-color: firebrick;
+  background-color: var(--fourth-color);
 }
 
 .lessonLink:hover {
-  background-color: var(--background-color-dark);
+  background-color: var(--fourth-color-dark);
 }
 
 /* Add Chapter and Add Lesson link styles */

@@ -73,7 +73,7 @@ function NavBar({ setConnected }) {
         <Link to="/Live" className={styles.link}>
           حصة مباشرة
         </Link>
-        <Link to="/dashboard" className={styles.link}>
+        <Link to="/classrooms" className={styles.link}>
           لوحة التحكم{" "}
         </Link>
 

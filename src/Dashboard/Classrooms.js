@@ -4,6 +4,7 @@ import { LOAD_MY_CLASSROOMS } from "../GraphQl/Queries";
 import styles from "./classrooms.module.css";
 import arabe from "./arabe.png";
 import { Link } from "react-router-dom";
+import StarRating from "../components/StartRating";
 
 function Classrooms() {
   const { loading, error, data } = useQuery(LOAD_MY_CLASSROOMS);
@@ -35,27 +36,14 @@ function Classrooms() {
             <div className={styles.user}>
               <div className={styles.user__info}>
                 <h5>{c.price} دج </h5>
-                <small>2h ago</small>
+                <small>{c.studentCount} تلميذ</small>
+
+                <StarRating rating={c.rating} />
               </div>
             </div>
           </div>
         </div>
       ))}
-
-      {/* {data.MyClassRoomsTeacher.map((classroom) => (
-        <Link
-          key={classroom.classRoomID}
-          className={styles.classroom}
-          to={`/classrooms/${classroom.classRoomID}`}
-        >
-          <img src={arabe} alt={arabe} />
-          <h2>{classroom.arabicTitle}</h2>
-          <p>عدد الوحدات {classroom.chapters.length}</p>
-          <p>السعر {classroom.price}</p>
-          <p>التقييم {classroom.rating}</p>
-          <p>عدد التلاميد {classroom.studentCount}</p>
-        </Link>
-      ))} */}
     </div>
   );
 }

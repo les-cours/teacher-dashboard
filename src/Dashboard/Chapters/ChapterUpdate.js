@@ -11,7 +11,7 @@ function ChapterUpdate() {
   let { classroomId, chapterId } = useParams();
   const navigate = useNavigate();
 
-  const { loading, error, data ,refetch} = useQuery(LOAD_CHAPTERS, {
+  const { loading, error, data, refetch } = useQuery(LOAD_CHAPTERS, {
     variables: { classRoomID: classroomId },
   });
 
@@ -29,8 +29,8 @@ function ChapterUpdate() {
       console.log("Chapter updated successfully.");
       console.log("Navigating to: ", `/classroom/${classroomId}/${chapterId}`);
 
-      navigate(`/dashboard/classrooms/${classroomId}/${chapterId}`);
-      refetch()
+      navigate(`/classrooms/${classroomId}/${chapterId}`);
+      refetch();
     },
     onError: (err) => {
       console.error("Error updating chapter:", err);
