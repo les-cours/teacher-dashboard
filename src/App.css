@@ -37,8 +37,38 @@
   }
 }
 
-.loginContainer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Light mode */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* Dark mode */
+body.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.navbar {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.dark-mode .navbar {
+  background-color: #333;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animation {
+  animation: slideDown 0.3s forwards;
 }

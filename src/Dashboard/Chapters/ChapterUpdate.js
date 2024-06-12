@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useParams, useNavigate } from "react-router-dom";
+import { useMutation, useQuery } from "@apollo/client";
 import "../chapters.css";
 import { LOAD_CHAPTERS } from "../../GraphQl/Queries";
+import Popup from "reactjs-popup";
+import { DELETE_CHAPTER } from "../../GraphQl/Mutations";
+import { UPDATE_CHAPTER } from "../../GraphQl/Mutations"; // Make sure this path is correct
 
 function ChapterUpdate() {
   let { classroomId, chapterId } = useParams();
+  const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery(LOAD_CHAPTERS, {
+  const { loading, error, data ,refetch} = useQuery(LOAD_CHAPTERS, {
     variables: { classRoomID: classroomId },
   });
 
@@ -18,6 +22,19 @@ function ChapterUpdate() {
     arabicTitle: "",
     description: "",
     arabicDescription: "",
+  });
+
+  const [updateChapter] = useMutation(UPDATE_CHAPTER, {
+    onCompleted: () => {
+      console.log("Chapter updated successfully.");
+      console.log("Navigating to: ", `/classroom/${classroomId}/${chapterId}`);
+
+      navigate(`/dashboard/classrooms/${classroomId}/${chapterId}`);
+      refetch()
+    },
+    onError: (err) => {
+      console.error("Error updating chapter:", err);
+    },
   });
 
   useEffect(() => {
@@ -37,7 +54,16 @@ function ChapterUpdate() {
       }
     }
   }, [data, chapterId]);
-  console.log(chapterData);
+
+  const [deleteChapter] = useMutation(DELETE_CHAPTER, {
+    onCompleted: () => {
+      console.log("Chapter deleted successfully.");
+      navigate(`/classroom/${classroomId}`);
+    },
+    onError: (err) => {
+      console.error("Error deleting chapter:", err);
+    },
+  });
 
   if (loading) return <p>Loading...</p>;
 
@@ -51,7 +77,19 @@ function ChapterUpdate() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    setIsEditable(false);
+    try {
+      await updateChapter({
+        variables: {
+          chapterID: chapterId,
+          title: chapterData.title,
+          arabicTitle: chapterData.arabicTitle,
+          description: chapterData.description,
+        },
+      });
+      setIsEditable(false);
+    } catch (err) {
+      console.error("Error updating chapter:", err);
+    }
   };
 
   const handleIgnore = () => {
@@ -65,12 +103,53 @@ function ChapterUpdate() {
     }
     setIsEditable(false);
   };
+
+  const handleDelete = async () => {
+    await deleteChapter({ variables: { id: chapterId } });
+  };
+
   return (
     <div className="chapterUpdate">
       <div>
-        <h2>وحدة{chapterData.title} </h2>
+        <h2>وحدة{chapterData.arabicTitle} </h2>
       </div>
-
+      <Popup
+        className="popup"
+        trigger={
+          <button style={{ position: "relative", backgroundColor: "red" }}>
+            حدف
+          </button>
+        }
+        modal
+        nested
+      >
+        {(close) => (
+          <div className="modal">
+            <div className="contentPop">
+              <div>
+                <h2>حدف وحدة</h2>
+                <div className="buttonDiv">
+                  <button
+                    style={{ backgroundColor: "#ff4646" }}
+                    onClick={() => close()}
+                  >
+                    الغاء
+                  </button>
+                  <button
+                    style={{ backgroundColor: "#41d06c" }}
+                    onClick={async () => {
+                      await handleDelete();
+                      close();
+                    }}
+                  >
+                    حدف
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </Popup>
       <div className="chapter-form">
         <form onSubmit={handleSave}>
           <label>Title:</label>

@@ -1,0 +1,147 @@
+/* Light mode */
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navBar a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 5px;
+  transition: color 0.2s ease;
+}
+
+.navBar a:hover {
+  color: var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Dark mode */
+body.dark-mode .navBar {
+  background-color: #3d3c3c;
+  color: #ffffff;
+}
+
+body.dark-mode .navBar a {
+  color: #ffffff;
+}
+
+body.dark-mode .navBar a:hover {
+  color: pink;
+}
+
+/* Logo */
+.logoDiv {
+  margin-right: 40px;
+  height: 80px;
+  width: 150px;
+}
+
+.logoDiv img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Links */
+.linksDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.avatarContainer {
+  box-sizing: border-box;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+
+.avatarContainer:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+
+.profile {
+  position: relative;
+}
+.profileInfo {
+  top: 60px;
+  left: 0;
+  z-index: 999;
+  background-color: var(--background-color);
+  position: absolute;
+  display: grid;
+  align-items: start;
+  min-width: max-content;
+  padding: 12px;
+  border-radius: 16px;
+
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  animation: anim 0.3s;
+  z-index: 999;
+  animation: slideDown 0.3s forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profileInfo button {
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  direction: rtl;
+  margin-bottom: 13px;
+  text-align: right;
+  direction: rtl;
+  border-radius: 8px;
+}
+
+.profileInfo button:hover,
+.dark:hover {
+  background-color: var(--background-color-dark);
+}
+
+.profileInfo button:last-child {
+  position: relative;
+}
+.profileInfo button:last-child::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 100%;
+  height: 0.5px;
+  background-color: var(--border-color);
+}
+
+.dark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

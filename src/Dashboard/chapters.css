@@ -54,3 +54,41 @@
 .form-container{
     margin-right: 250px;
 }
+
+.modal{
+  height: 200px;
+  width: 200px;
+  background-color: aliceblue;
+}
+.documentTable td {
+  min-width: 120px;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.popup{
+  width: 100vh;
+  height: 100vw;
+  background-color: rgba(197, 49, 49, 0.5); 
+}
+
+.modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  width: 600px;
+  background-color: #ebe8e8;
+}
+.modalDelete{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 220px;
+  background-color: #ebe8e8;
+
+}

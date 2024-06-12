@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function ClassroomUpdate() {
   let { classroomId } = useParams();
-  const { loading, error, data } = useQuery(LOAD_CLASSROOM_INFO, {
+  const { loading, error, data,refetch } = useQuery(LOAD_CLASSROOM_INFO, {
     variables: { classRoomID: classroomId },
   });
 //   const [updateClassroom] = useMutation(UPDATE_CLASSROOM);
@@ -89,6 +89,7 @@ function ClassroomUpdate() {
     //     },
     //   });
     //   setIsEditable(false);
+    // refetch()
     // } catch (error) {
     //   console.error("Error updating Classroom:", error);
     // }

@@ -1,0 +1,113 @@
+.classrooms {
+  display: flex;
+  gap: 1rem;
+}
+.classroom {
+  margin: 10px;
+  background-color: antiquewhite;
+  color: black;
+  background-color: red;
+}
+.classrooms a:visited {
+  text-decoration: none;
+}
+.classrooms a:link {
+  text-decoration: none;
+}
+.classrooms a:hover {
+  color: black;
+  font-size: 16px;
+  background-color: #dcdcdc;
+
+  transition: 0.5s;
+}
+
+.classroom img {
+  width: 100%;
+  height: 150px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(20rem, calc(20rem + 2vw), 22rem);
+  overflow: hidden;
+  box-shadow: 0 0.05rem 0.5rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  background: var(--background-color);
+  background: linear-gradient(
+    to right,
+    var(--background-color),
+    var(--background-color-dark)
+  );
+}
+
+.card__body {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tag {
+  align-self: flex-start;
+  padding: 0.25em 0.75em;
+  border-radius: 1em;
+  font-size: 0.75rem;
+}
+
+.tag + .tag {
+  margin-left: 0.25em;
+}
+
+.tagBlue {
+  background: #56ccf2;
+  background: linear-gradient(to bottom, #2f80ed, #56ccf2);
+  color: #fafafa;
+}
+
+.tag-brown {
+  background: #d1913c;
+  background: linear-gradient(to bottom, #ffd194, #d1913c);
+  color: #fafafa;
+}
+
+.tag-red {
+  background: #cb2d3e;
+  background: linear-gradient(to bottom, #ef473a, #cb2d3e);
+  color: #fafafa;
+}
+
+.card__body h4 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.card__body p {
+  font-size: 12px;
+}
+
+.card__footer {
+  display: flex;
+  padding: 0.5rem;
+  margin-top: auto;
+}
+
+.user {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.user__image {
+  border-radius: 50%;
+}
+
+.user__info > small {
+  color: #666;
+}

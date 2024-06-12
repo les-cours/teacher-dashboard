@@ -55,7 +55,45 @@ export const CREATE_CHAPTER = gql`
   }
 `;
 
-
+export const CREATE_LESSON = gql`
+  mutation CreateLesson(
+    $chapterID: String!
+    $title: String!
+    $arabicTitle: String!
+    $description: String!
+  ) {
+    createLesson(
+      in: {
+        chapterID: $chapterID
+        title: $title
+        arabicTitle: $arabicTitle
+        description: $description
+      }
+    ) {
+      lessonID
+      arabicTitle
+      title
+      description
+    }
+  }
+`;
+export const DELETE_CHAPTER = gql`
+  mutation DeleteChapter($id: String!) {
+    deleteChapter(in: { id: $id }) {
+      succeeded
+    }
+  }
+`;
+export const UPDATE_CHAPTER = gql`
+  mutation UpdateChapter($chapterID: String!, $title: String!, $arabicTitle: String!, $description: String!) {
+    updateChapter(in: {chapterID: $chapterID, title: $title, arabicTitle: $arabicTitle, description: $description}) {
+      chapterID
+      title
+      arabicTitle
+      description
+    }
+  }
+`;
 export const UPDATE_TEACHER = gql`
   mutation UpdateTeacher(
     $description: String!
@@ -86,3 +124,49 @@ export const UPDATE_TEACHER = gql`
 // export const UPDATE_CLASSROOM = gql`
 
 // `
+
+export const CREATE_PDF = gql`
+  mutation CreatePdf(
+    $lessonID: String!
+    $title: String!
+    $arabicTitle: String!
+    $description: String!
+    $arabicDescription: String!
+    $lectureNumber: Int!
+    $url: String!
+  ) {
+    createPdf(
+      in: {
+        lessonID: $lessonID
+        title: $title
+        arabicTitle: $arabicTitle
+        description: $description
+        arabicDescription: $arabicDescription
+        lectureNumber: $lectureNumber
+        url: $url
+      }
+    ) {
+      documentID
+      documentType
+      title
+      arabicTitle
+      description
+      arabicDescription
+      duration {
+        hours
+        minutes
+        seconds
+        nanoseconds
+      }
+      lectureNumber
+      documentLink
+    }
+  }
+`;
+export const DELETE_DOCUMENT = gql`
+  mutation DeleteDocument($documentID: String!) {
+    deleteDocument(documentID: $documentID) {
+      succeeded
+    }
+  }
+`;

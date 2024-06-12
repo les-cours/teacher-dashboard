@@ -1,0 +1,175 @@
+.dashboard {
+  position: relative;
+  display: block;
+  min-height: calc(100vh - 80.08px);
+  width: 230px;
+  border-radius: 10px 0 0 20px;
+  background-color: var(--background-color-dark);
+  /* // background-color: red; */
+  padding: 12px 0;
+  background-color: var(--background-color-side);
+}
+
+.side {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 16px;
+}
+
+.sideLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.sideLink.active {
+  background-color: var(--backend-color-side-hover);
+}
+
+.container {
+  margin-right: 210px;
+  /* width: 1200px; */
+}
+
+body.dark-mode .dashboard {
+  background-color: #121212;
+  color: white;
+}
+
+.sideLink:visited {
+  text-decoration: none;
+}
+.sideLink:link {
+  text-decoration: none;
+}
+.sideLink:hover {
+  color: black;
+  font-size: 18px;
+  background-color: var(--backend-color-side-hover);
+}
+
+.classroom {
+  margin-bottom: 6px;
+}
+
+.classroomBtn {
+  display: block;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: var(--text-color-light);
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: background-color 0.3s ease;
+  font-size: 17px;
+  transition: all 0.3s ease;
+}
+
+.classroomBtn:hover {
+  background-color: var(--secondary-color-dark);
+}
+
+.dropdownMenu {
+}
+
+.dropdownContent {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.chapters {
+  margin-bottom: 12px;
+}
+
+.chapterLink {
+  display: block;
+  padding: 10px 20px;
+  background-color: var(--third-color);
+  color: var(--text-color-light);
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-bottom: -8px;
+}
+
+.chapterLink:hover {
+  background-color: var(--third-color-dark);
+}
+
+/* Lessons styles */
+.lessons {
+  padding-left: 16px;
+}
+
+.lessonLink {
+  display: block;
+  padding: 8px 16px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: firebrick;
+}
+
+.lessonLink:hover {
+  background-color: var(--background-color-dark);
+}
+
+/* Add Chapter and Add Lesson link styles */
+.addChapter,
+.addLesson {
+  display: block;
+  padding: 6px;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.addChapter svg,
+.addLesson svg {
+  fill: var(--text-color-light);
+}
+.addChapter:hover,
+.addLesson:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.addLesson {
+}
+
+/*
+outlet
+*/
+
+.outlet {
+  margin-top: -12px;
+  min-width: calc(100vw - 350px);
+  margin-right: 300px;
+  min-height: calc(100vh - 80px);
+  background-color: var(--background-color-side);
+  border: 2px solid var(--background-color-dark);
+  padding: 16px;
+}
