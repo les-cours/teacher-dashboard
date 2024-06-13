@@ -1,0 +1,170 @@
+.lesson {
+}
+
+.lessonHeader {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lessonHeaderBtns {
+  display: flex;
+  gap: 16px;
+}
+
+.lessonHeaderBtns button {
+  background-color: var(--background-color-dark);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.lessonHeader h2 {
+  font-weight: 700;
+}
+
+.lessonHeader p {
+  font-size: 13px;
+}
+.popup {
+  position: relative;
+  z-index: 1000;
+}
+
+.contentPop {
+  padding: 10px;
+}
+
+.modalDelete {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.documentTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.documentTable th,
+.documentTable td {
+  padding: 10px;
+  text-align: center;
+}
+
+.documentTable th {
+  background-color: #f2f2f2;
+}
+
+.documentTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+button {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+.actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.actions button {
+  background-color: transparent;
+  padding: 8px;
+}
+.actions svg {
+  fill: var(--primary-color) !important;
+  scale: 1.3;
+}
+
+.addDocument {
+  padding: 20px;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); */
+  width: 100%;
+  margin: 20px auto;
+}
+
+.addDocument h2 {
+  margin-top: 0;
+  color: #333333;
+  text-align: center;
+}
+
+.addDocument form {
+  display: grid;
+  gap: 10px;
+}
+
+.addDocument label {
+  font-weight: bold;
+}
+
+.addDocument input[type="text"],
+.addDocument input[type="number"],
+.addDocument input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.addDocument input[type="file"] {
+  padding: 10px 0;
+}
+
+.addDocument button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addDocument button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.addDocument .chooseFileInput {
+  display: none;
+}
+
+.addDocument .chooseFileButton {
+  background-color: #2196f3;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addDocument .chooseFileButton:hover {
+  background-color: #0b7dda;
+}

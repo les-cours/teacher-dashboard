@@ -72,3 +72,22 @@ body.dark-mode {
 .animation {
   animation: slideDown 0.3s forwards;
 }
+
+.modal {
+  padding: 0 24px;
+
+  width: 600px;
+  background-color: var(--background-color-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 3px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow effect */
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  max-height: 85vh;
+  overflow: scroll;
+}
+
+.contentPop {
+  background-color: blue;
+}

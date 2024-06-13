@@ -1,23 +1,23 @@
-// src/components/AddDocument.js
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { CREATE_PDF } from '../../GraphQl/Mutations';
-import { v4 as uuidv4 } from 'uuid';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../../firebase';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { CREATE_PDF } from "../../GraphQl/Mutations";
+import { v4 as uuidv4 } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase";
+import { useParams } from "react-router-dom";
+import styles from "./lesson.module.css";
 
 export default function AddDocument() {
-    let {lessonId} = useParams();
+  let { lessonId } = useParams();
   const [imageUpload, setImageUpload] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
-    title: '',
-    arabicTitle: '',
-    description: '',
-    arabicDescription: '',
-    lectureNumber: '',
-    url: ''
+    title: "",
+    arabicTitle: "",
+    description: "",
+    arabicDescription: "",
+    lectureNumber: "",
+    url: "",
   });
 
   const [createPdf, { data, loading, error }] = useMutation(CREATE_PDF);
@@ -26,7 +26,7 @@ export default function AddDocument() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -43,7 +43,7 @@ export default function AddDocument() {
       }));
       setUploading(false);
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error("Error uploading image:", error);
       setUploading(false);
     }
   };
@@ -51,60 +51,86 @@ export default function AddDocument() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.url) {
-      alert('Please wait for the file to finish uploading.');
+      alert("يرجى الانتظار حتى ينتهي تحميل الملف.");
       return;
     }
     try {
-        console.log("ffffffffffffffffffff")
       const { data } = await createPdf({
-        
         variables: {
-         
-            lessonID: lessonId,
-            title: formData.title,
-            arabicTitle: formData.arabicTitle,
-            description: formData.description,
-            arabicDescription: formData.arabicDescription,
-            lectureNumber: parseInt(formData.lectureNumber),
-            url: formData.url
-          
-        }
+          lessonID: lessonId,
+          title: formData.title,
+          arabicTitle: formData.arabicTitle,
+          description: formData.description,
+          arabicDescription: formData.arabicDescription,
+          lectureNumber: parseInt(formData.lectureNumber),
+          url: formData.url,
+        },
       });
-      console.log("PDF created successfully:", data);
+      console.log("تم إنشاء ملف PDF بنجاح:", data);
     } catch (error) {
-      console.error("Error creating PDF:", error);
+      console.error("خطأ في إنشاء ملف PDF:", error);
     }
   };
-  
 
   return (
-    <div>
-      <h2>Create PDF</h2>
+    <div className={styles.addDocument}>
+      <h2>إنشاء ملف PDF</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Title</label>
-          <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+          <label>العنوان</label>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
-          <label>Arabic Title</label>
-          <input type="text" name="arabicTitle" value={formData.arabicTitle} onChange={handleChange} required />
+          <label>العنوان بالعربية</label>
+          <input
+            type="text"
+            name="arabicTitle"
+            value={formData.arabicTitle}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
-          <label>Description</label>
-          <input type="text" name="description" value={formData.description} onChange={handleChange} required />
+          <label>الوصف</label>
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
-          <label>Arabic Description</label>
-          <input type="text" name="arabicDescription" value={formData.arabicDescription} onChange={handleChange} required />
+          <label>الوصف بالعربية</label>
+          <input
+            type="text"
+            name="arabicDescription"
+            value={formData.arabicDescription}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
-          <label>Lecture Number</label>
-          <input type="number" name="lectureNumber" value={formData.lectureNumber} onChange={handleChange} required />
+          <label>رقم المحاضرة</label>
+          <input
+            type="number"
+            name="lectureNumber"
+            value={formData.lectureNumber}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <input
             className="chooseFileInput"
             type="file"
+            accept=".pdf"
             onChange={(event) => {
               const file = event.target.files[0];
               setImageUpload(file);
@@ -112,12 +138,14 @@ export default function AddDocument() {
             }}
             required
           />
-          {uploading && <p>Uploading file...</p>}
+          {uploading && <p>جاري تحميل الملف...</p>}
         </div>
-        <button type="submit" disabled={loading || uploading}>Create PDF</button>
-        {loading && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
-        {data && <p>PDF created successfully!</p>}
+        <button type="submit" disabled={loading || uploading}>
+          إنشاء ملف PDF
+        </button>
+        {loading && <p>جار التحميل...</p>}
+        {error && <p>خطأ: {error.message}</p>}
+        {data && <p>تم إنشاء ملف PDF بنجاح!</p>}
       </form>
     </div>
   );

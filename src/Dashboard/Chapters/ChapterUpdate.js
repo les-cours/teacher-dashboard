@@ -65,7 +65,7 @@ function ChapterUpdate() {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>جار التحميل...</p>;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -111,13 +111,13 @@ function ChapterUpdate() {
   return (
     <div className="chapterUpdate">
       <div>
-        <h2>وحدة{chapterData.arabicTitle} </h2>
+        <h2>وحدة {chapterData.arabicTitle} </h2>
       </div>
       <Popup
         className="popup"
         trigger={
           <button style={{ position: "relative", backgroundColor: "red" }}>
-            حدف
+            حذف
           </button>
         }
         modal
@@ -127,13 +127,13 @@ function ChapterUpdate() {
           <div className="modal">
             <div className="contentPop">
               <div>
-                <h2>حدف وحدة</h2>
+                <h2>حذف وحدة</h2>
                 <div className="buttonDiv">
                   <button
                     style={{ backgroundColor: "#ff4646" }}
                     onClick={() => close()}
                   >
-                    الغاء
+                    إلغاء
                   </button>
                   <button
                     style={{ backgroundColor: "#41d06c" }}
@@ -142,7 +142,7 @@ function ChapterUpdate() {
                       close();
                     }}
                   >
-                    حدف
+                    حذف
                   </button>
                 </div>
               </div>
@@ -152,7 +152,7 @@ function ChapterUpdate() {
       </Popup>
       <div className="chapter-form">
         <form onSubmit={handleSave}>
-          <label>Title:</label>
+          <label>العنوان:</label>
           <input
             type="text"
             name="title"
@@ -160,7 +160,7 @@ function ChapterUpdate() {
             disabled={!isEditable}
             onChange={handleInputChange}
           />
-          <label>Arabic Title:</label>
+          <label>العنوان بالعربية:</label>
           <input
             type="text"
             name="arabicTitle"
@@ -168,14 +168,14 @@ function ChapterUpdate() {
             disabled={!isEditable}
             onChange={handleInputChange}
           />
-          <label>Description:</label>
+          <label>الوصف:</label>
           <textarea
             name="description"
             value={chapterData.description}
             disabled={!isEditable}
             onChange={handleInputChange}
           />
-          <label>Arabic Description:</label>
+          <label>الوصف بالعربية:</label>
           <textarea
             name="arabicDescription"
             value={chapterData.arabicDescription}
@@ -184,14 +184,14 @@ function ChapterUpdate() {
           />
           {isEditable ? (
             <>
-              <button type="submit">Save</button>
+              <button type="submit">حفظ</button>
               <button type="button" onClick={handleIgnore}>
-                Ignore
+                تجاهل
               </button>
             </>
           ) : (
             <button type="button" onClick={() => setIsEditable(true)}>
-              Update
+              تحديث
             </button>
           )}
         </form>

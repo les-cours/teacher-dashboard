@@ -1,4 +1,3 @@
-// src/components/LessonDetails.js
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
@@ -8,6 +7,18 @@ import AddDocument from "./addDocument";
 import { DELETE_DOCUMENT } from "../../GraphQl/Mutations";
 import LessonUpdate from "./LessonUpdate";
 import { LOAD_LESSON_DETAILS } from "../../GraphQl/Queries";
+import styles from "./lesson.module.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEdit,
+  faTrashAlt,
+  faFilePdf,
+  faVideo,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import PopupModel from "../../components/Popup";
+
 function LessonDetails() {
   let { classroomId, chapterId, lessonId } = useParams();
 
@@ -25,16 +36,17 @@ function LessonDetails() {
     }
   }, [data, lessonId]);
   const [deleteDocument] = useMutation(DELETE_DOCUMENT);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p>جار التحميل...</p>;
+  if (error) return <p>خطأ: {error.message}</p>;
 
   const lesson = data.lessons.find((item) => item.lessonID === lessonId);
 
   if (!lesson) {
-    return <div>No lesson found for this ID.</div>;
+    return <div>لم يتم العثور على درس لهذا المعرف.</div>;
   }
   const handleDeleteDocument = async (documentID, close) => {
     try {
+      console.log("document:", documentID);
       const { data } = await deleteDocument({ variables: { documentID } });
       if (data.deleteDocument.succeeded) {
         // Refetch the lesson details to update the UI
@@ -42,199 +54,174 @@ function LessonDetails() {
         close();
         window.location.reload();
       } else {
-        alert("Failed to delete the document");
+        alert("فشل في حذف الملف");
       }
     } catch (error) {
-      alert("Error deleting document: " + error.message);
+      alert("خطأ في حذف الملف: " + error.message);
     }
   };
   return (
-    <div style={{ marginRight: "230px", width: "500px" }}>
-      <div>
-        <h2>درس {lesson.arabicTitle}</h2>
-        <Popup
-          className="popup"
-          trigger={
-            <button style={{ position: "relative", backgroundColor: "blue" }}>
-              تعديل الدرس{" "}
-            </button>
-          }
-          modal
-          nested
-        >
-          {(close) => (
-            <div className="modal">
-              <div className="contentPop">
-                <LessonUpdate />
-              </div>
-            </div>
-          )}
-        </Popup>
-        <Popup
-                    className="popup"
-                    trigger={
-                      <button
-                        style={{ position: "relative", backgroundColor: "red" }}
-                      >
-                        حدف الدرس
-                      </button>
-                    }
-                    modal
-                    nested
-                  >
-                    {(close) => (
-                      <div className="modalDelete">
-                        <div className="contentPop">
-                          <div>
-                            <h2>حدف الدرس</h2>
+    <div className={styles.lesson}>
+      <div className={styles.lessonHeader}>
+        <div>
+          <h2># درس {lesson.arabicTitle}</h2>
+          <p>{lesson.arabicDescription}</p>
+        </div>
 
-                            <div className="buttonDiv">
-                              <button
-                                style={{ backgroundColor: "#ff4646" }}
-                                onClick={() => close()}
-                              >
-                                الغاء
-                              </button>
-
-                              <button
-                                style={{ backgroundColor: "#ff4646" }}
-                                onClick={() =>
-                                  handleDeleteDocument(
-                                    document.documentID,
-                                    close
-                                  )
-                                }
-                              >
-                                حدف
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </Popup>
-      </div>
-      <div>
-        <h3>العنوان : {lesson.arabicTitle}</h3>
-        <p>الوصف : {lesson.arabicDescription}</p>
-        <h3>Documents:</h3>
-        <Popup
-          className="popup"
-          trigger={
-            <button style={{ position: "relative", backgroundColor: "blue" }}>
-              + اضافة ملف
-            </button>
-          }
-          modal
-          nested
-        >
-          {(close) => (
-            <div className="modal">
-              <div className="contentPop">
-                <div>
-                  <h2> اضافة ملف</h2>
-                  <AddDocument />
-                  <div className="buttonDiv">
-                    <button
-                      style={{ backgroundColor: "#ff4646" }}
-                      onClick={() => close()}
-                    >
-                      الغاء
-                    </button>
-                  </div>
+        <div className={styles.lessonHeaderBtns}>
+          <Popup
+            className="popup"
+            trigger={
+              <button>
+                <FontAwesomeIcon icon={faEdit} /> تعديل الدرس
+              </button>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <div className="modal">
+                <div className="contentPop">
+                  <LessonUpdate />
                 </div>
               </div>
-            </div>
-          )}
-        </Popup>
-        <table className="documentTable" border="1">
-          <thead>
-            <tr>
-              <th>Lecture Number</th>
-              <th>document type</th>
+            )}
+          </Popup>
+          <Popup
+            className="popup"
+            trigger={
+              <button>
+                <FontAwesomeIcon icon={faTrashAlt} /> حذف الدرس
+              </button>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <PopupModel>
+                <button
+                  style={{ background: "red", color: "white" }}
+                  onClick={() => {
+                    console.log("id", document.documentID);
+                  }}
+                >
+                  الملف حذف
+                </button>
+              </PopupModel>
+            )}
+          </Popup>
+          <Popup
+            className="popup"
+            trigger={
+              <button>
+                <FontAwesomeIcon icon={faPlus} />
+                إضافة ملف
+              </button>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <PopupModel close={close} title={""}>
+                <AddDocument />
+              </PopupModel>
+            )}
+          </Popup>
+        </div>
+      </div>
 
-              <th>Arabic Title</th>
-              <th>Arabic Description</th>
-              <th>Duration</th>
-              <th>Document Link</th>
-              <th>update</th>
-              <th>delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lesson.documents.map((document) => (
-              <tr key={document.documentID}>
-                <td>{document.lectureNumber}</td>
-                <td>{document.documentType}</td>
+      <table className={styles.documentTable} border="1">
+        <thead>
+          <tr>
+            <th></th>
 
-                <td>{document.arabicTitle}</td>
-                <td>{document.arabicDescription}</td>
-                <td>
-                  {document.duration.hours}h {document.duration.minutes}m{" "}
-                  {document.duration.seconds}s
-                </td>
-                <td>
-                  <a
-                    href={document.documentLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {document.documentLink}
-                  </a>
-                </td>
-                <td>
-                  <button>update</button>
-                </td>
-                <td>
-                  <Popup
-                    className="popup"
-                    trigger={
-                      <button
-                        style={{ position: "relative", backgroundColor: "red" }}
-                      >
-                        حدف ملف
-                      </button>
-                    }
-                    modal
-                    nested
-                  >
-                    {(close) => (
-                      <div className="modalDelete">
-                        <div className="contentPop">
-                          <div>
-                            <h2>حدف الملف</h2>
+            <th>العنوان</th>
+            <th>الوصف</th>
+            <th>المدة</th>
+            <th>رابط الملف</th>
+          </tr>
+        </thead>
+        <tbody>
+          {lesson.documents.map((document) => (
+            <tr key={document.documentID}>
+              <td>{document.lectureNumber}</td>
 
-                            <div className="buttonDiv">
-                              <button
-                                style={{ backgroundColor: "#ff4646" }}
-                                onClick={() => close()}
-                              >
-                                الغاء
-                              </button>
+              <td>{document.arabicTitle}</td>
+              <td>{document.arabicDescription}</td>
+              <td>
+                {document.documentType === "pdf" ? (
+                  <>/</>
+                ) : (
+                  <div>
+                    {document.duration.hours}س {document.duration.minutes}د{" "}
+                    {document.duration.seconds}ث
+                  </div>
+                )}
+              </td>
 
-                              <button
-                                style={{ backgroundColor: "#ff4646" }}
-                                onClick={() =>
-                                  handleDeleteDocument(
-                                    document.documentID,
-                                    close
-                                  )
-                                }
-                              >
-                                حدف
-                              </button>
-                            </div>
+              <td className={styles.actions}>
+                <button>
+                  {document.documentType === "pdf" ? (
+                    <FontAwesomeIcon
+                      icon={faFilePdf}
+                      color="var(--primary-color)"
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faVideo}
+                      color="var(--secondary-color)"
+                    />
+                  )}
+                </button>
+
+                <button>
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <Popup
+                  className={styles.popup}
+                  trigger={
+                    <button>
+                      <FontAwesomeIcon icon={faTrashAlt} color="#C80036" />
+                    </button>
+                  }
+                  modal
+                  nested
+                >
+                  {(close) => (
+                    <div className={styles.modalDelete}>
+                      <div className={styles.contentPop}>
+                        <div>
+                          <h2>حذف الملف</h2>
+
+                          <div className={styles.buttonDiv}>
+                            <button
+                              style={{ backgroundColor: "#ff4646" }}
+                              onClick={() => close()}
+                            >
+                              إلغاء
+                            </button>
+
+                            <button
+                              style={{ backgroundColor: "#ff4646" }}
+                              onClick={handleDeleteDocument.bind(
+                                this,
+                                document.documentID,
+                                close
+                              )}
+                            >
+                              حذف
+                            </button>
                           </div>
                         </div>
                       </div>
-                    )}
-                  </Popup>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                    </div>
+                  )}
+                </Popup>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
