@@ -55,6 +55,9 @@
   margin-top: 20px;
 }
 
+.documentTable th {
+  font-weight: 700;
+}
 .documentTable th,
 .documentTable td {
   padding: 10px;

@@ -166,8 +166,8 @@ outlet
 
 .outlet {
   margin-top: -12px;
-  min-width: calc(100vw - 350px);
-  margin-right: 300px;
+  min-width: calc(100vw - 407px);
+  margin-right: 410px;
   min-height: calc(100vh - 80px);
   background-color: var(--background-color-side);
   border: 2px solid var(--background-color-dark);
