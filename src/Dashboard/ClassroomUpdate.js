@@ -5,7 +5,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../firebase";
 import styles from "./classrooms.module.css";
 import { LOAD_CLASSROOM_INFO } from "../GraphQl/Queries";
-// import { UPDATE_CLASSROOM } from "../GraphQl/Mutations";
+import { UPDATE_CLASSROOM } from "../GraphQl/Mutations";
 import { v4 as uuidv4 } from "uuid";
 
 function ClassroomUpdate() {
@@ -13,16 +13,13 @@ function ClassroomUpdate() {
   const { loading, error, data, refetch } = useQuery(LOAD_CLASSROOM_INFO, {
     variables: { classRoomID: classroomId },
   });
-  //   const [updateClassroom] = useMutation(UPDATE_CLASSROOM);
+     const [updateClassroom] = useMutation(UPDATE_CLASSROOM);
   const [isEditable, setIsEditable] = useState(false);
   const [initialClassRoomData, setInitialClassRoomData] = useState(null);
   const [classRoomData, setClassRoomData] = useState({
     title: "",
-    studentCount: "",
     price: "",
     image: "",
-    badge: "",
-    rating: "",
     arabicTitle: "",
     description: "",
     arabicDescription: "",
@@ -34,11 +31,8 @@ function ClassroomUpdate() {
     if (data) {
       const fetchedData = {
         title: data.classRoom.title,
-        studentCount: data.classRoom.studentCount,
         price: data.classRoom.price,
         image: data.classRoom.image,
-        badge: data.classRoom.badge,
-        rating: data.classRoom.rating,
         arabicTitle: data.classRoom.arabicTitle,
         description: data.classRoom.description,
         arabicDescription: data.classRoom.arabicDescription,
@@ -73,26 +67,23 @@ function ClassroomUpdate() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    // try {
-    //   await updateClassroom({
-    //     variables: {
-    //       classRoomID: classroomId,
-    //       title: classRoomData.title,
-    //       studentCount: classRoomData.studentCount,
-    //       price: classRoomData.price,
-    //       image: classRoomData.image,
-    //       badge: classRoomData.badge,
-    //       rating: classRoomData.rating,
-    //       arabicTitle: classRoomData.arabicTitle,
-    //       description: classRoomData.description,
-    //       arabicDescription: classRoomData.arabicDescription,
-    //     },
-    //   });
-    //   setIsEditable(false);
-    // refetch()
-    // } catch (error) {
-    //   console.error("Error updating Classroom:", error);
-    // }
+    try {
+      await updateClassroom({
+        variables: {
+          classRoomID: classroomId,
+          title: classRoomData.title,
+          price: classRoomData.price,
+          image: classRoomData.image,
+          arabicTitle: classRoomData.arabicTitle,
+          description: classRoomData.description,
+          arabicDescription: classRoomData.arabicDescription,
+        },
+      });
+      setIsEditable(false);
+    refetch()
+    } catch (error) {
+      console.error("Error updating Classroom:", error);
+    }
   };
 
   const handleIgnore = () => {

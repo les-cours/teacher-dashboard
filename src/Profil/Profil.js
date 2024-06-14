@@ -1,7 +1,6 @@
-
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import "./Profil.css";
+import styles from "./Profil.module.css";
 import { UPDATE_TEACHER } from "../GraphQl/Mutations";
 import { LOAD_CITIES } from "../GraphQl/Queries";
 import { useMutation, useQuery } from "@apollo/client";
@@ -22,14 +21,24 @@ function Profil() {
     gender: "",
     city: 0,
     description: "",
-    avatar: ""
+    avatar: "",
   });
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
       const user = JSON.parse(userInfo);
-      const { id, firstname, lastname, birthDate, phoneNumber, gender, city, description, avatar } = user;
+      const {
+        id,
+        firstname,
+        lastname,
+        birthDate,
+        phoneNumber,
+        gender,
+        city,
+        description,
+        avatar,
+      } = user;
       setFormData({
         teacherId: id,
         firstName: firstname,
@@ -39,7 +48,7 @@ function Profil() {
         gender: gender || "",
         city: city || 0,
         description: description || "",
-        avatar: avatar || ""
+        avatar: avatar || "",
       });
       setImagePreviewUrl(avatar); // Set the initial avatar preview if it exists
     }
@@ -108,7 +117,7 @@ function Profil() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let avatarUrl = formData.avatar;
-  
+
     if (imageUpload) {
       const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
       try {
@@ -120,7 +129,7 @@ function Profil() {
         return;
       }
     }
-  
+
     try {
       const { data } = await updateTeacher({
         variables: {
@@ -134,7 +143,7 @@ function Profil() {
           avatar: avatarUrl,
         },
       });
-  
+
       // Update userInfo in local storage
       const updatedUserInfo = {
         id: formData.teacherId,
@@ -148,22 +157,39 @@ function Profil() {
         avatar: avatarUrl,
       };
       localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
-  
+
       console.log("Teacher updated successfully:", data);
     } catch (error) {
       console.error("Error updating teacher:", error);
     }
   };
-  
 
   if (loading) return <p>جاري ...</p>;
   if (error) return <p>خطا في تحميل المدن</p>;
 
   return (
-    <div className="profilContainer">
-      <div className="profilForm">
+    <div className={styles.profilContainer}>
+      <div className={styles.profilForm}>
         <form onSubmit={handleSubmit}>
-          <div className="inputGroup">
+          <div className={styles.inputGroup}>
+            <input
+              type="file"
+              id="avatar"
+              accept="image/*,image/svg+xml"
+              onChange={handleImageChange}
+              disabled={!isEditable}
+            />
+          </div>
+          {imagePreviewUrl && (
+            <div className="avatarPreview">
+              <img
+                src={imagePreviewUrl}
+                alt={`${formData.firstName} ${formData.lastName}`}
+                className="avatarImage"
+              />
+            </div>
+          )}
+          <div className={styles.inputGroup}>
             <label htmlFor="firstName">الاسم:</label>
             <input
               type="text"
@@ -174,7 +200,7 @@ function Profil() {
               readOnly={!isEditable}
             />
           </div>
-          <div className="inputGroup">
+          <div className={styles.inputGroup}>
             <label htmlFor="lastName">اللقب:</label>
             <input
               type="text"
@@ -185,7 +211,7 @@ function Profil() {
               readOnly={!isEditable}
             />
           </div>
-          <div className="inputGroup">
+          <div className={styles.inputGroup}>
             <label htmlFor="birthDate">تاريخ الميلاد:</label>
             <input
               type="date"
@@ -196,7 +222,7 @@ function Profil() {
               readOnly={!isEditable}
             />
           </div>
-          <div className="inputGroup">
+          <div className={styles.inputGroup}>
             <label htmlFor="phoneNumber">رقم الهاتف:</label>
             <input
               type="text"
@@ -207,7 +233,7 @@ function Profil() {
               readOnly={!isEditable}
             />
           </div>
-          <div className="inputGroup">
+          <div className={styles.inputGroup}>
             <label>المدينة:</label>
             <Select
               placeholder={<div>اختر مدينتك</div>}
@@ -237,7 +263,7 @@ function Profil() {
                   display: "flex",
                   alignItems: "center",
                   margin: "0",
-                  width: '100px',
+                  width: "100px",
                   caretColor: "transparent",
                 }),
                 placeholder: (provided) => ({
@@ -251,7 +277,7 @@ function Profil() {
               }}
             />
           </div>
-          <div className="inputGroup">
+          <div className={styles.inputGroup}>
             <label>الجنس:</label>
             <select
               name="gender"
@@ -264,7 +290,7 @@ function Profil() {
               <option value="F">أنثى</option>
             </select>
           </div>
-          <div className="inputGroup">
+          <div className={styles.inputGroup}>
             <label htmlFor="description">الوصف:</label>
             <textarea
               id="description"
@@ -274,22 +300,8 @@ function Profil() {
               readOnly={!isEditable}
             />
           </div>
-          <div className="inputGroup">
-            <label htmlFor="avatar">الصورة:</label>
-            <input
-              type="file"
-              id="avatar"
-              accept="image/*,image/svg+xml"
-              onChange={handleImageChange}
-              disabled={!isEditable}
-            />
-          </div>
-          {imagePreviewUrl && (
-            <div className="avatarPreview">
-              <img src={imagePreviewUrl} alt={`${formData.firstName} ${formData.lastName}`} className="avatarImage" />
-            </div>
-          )}
-          <div className="buttonGroup">
+
+          <div className={styles.buttonGroup}>
             <button type="button" onClick={handleUpdateClick}>
               {isEditable ? "Save" : "Update"}
             </button>

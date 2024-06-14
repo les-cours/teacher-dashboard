@@ -48,6 +48,7 @@ function NavBar({ setConnected }) {
   const showProfileHandler = () => {
     setProfileInfoVisible(!isProfileInfoVisible);
   };
+
   const logout = () => {
     localStorage.removeItem("token");
     setConnected(false);
@@ -78,11 +79,13 @@ function NavBar({ setConnected }) {
         </Link>
 
         <div className={styles.profile} ref={profileRef}>
-          <div
-            className={styles.avatarContainer}
-            dangerouslySetInnerHTML={{ __html: avatar }}
-            onClick={showProfileHandler}
-          />
+          <div className={styles.avatarContainer} onClick={showProfileHandler}>
+            {avatar && avatar.includes("<svg") ? (
+              <div dangerouslySetInnerHTML={{ __html: avatar }} />
+            ) : (
+              <img src={avatar} alt="Avatar" />
+            )}
+          </div>
           {isProfileInfoVisible && (
             <div className={styles.profileInfo}>
               <button

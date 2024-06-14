@@ -128,7 +128,7 @@ function App() {
               </Route>
               <Route path="/profile" element={<Profil />} />
               <Route path="/logout" element={<div>Logout</div>} />
-              {/* <Route path="*" element={<Navigate to="/home" />} /> */}
+              <Route path="*" element={<Navigate to="/home" />} />
             </>
           ) : (
             <>
@@ -140,7 +140,7 @@ function App() {
                 path="/confirm/:teacherID?"
                 element={<TeacherRegister setConnected={setConnected} />}
               />
-              {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+              <Route path="*" element={<Navigate to="/login" />} />
             </>
           )}
         </Routes>

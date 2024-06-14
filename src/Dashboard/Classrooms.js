@@ -19,7 +19,8 @@ function Classrooms() {
         <div className={styles.card}>
           <div className={styles.card__header}>
             <img
-              src={arabe}
+            src={c.image}
+             
               alt="card__image"
               className={styles.card__image}
               width="600"

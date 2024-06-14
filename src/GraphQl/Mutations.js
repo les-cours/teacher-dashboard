@@ -121,9 +121,45 @@ export const UPDATE_TEACHER = gql`
     }
   }
 `;
-// export const UPDATE_CLASSROOM = gql`
+export const UPDATE_CLASSROOM = gql`
+mutation updateClassRoom(
+  $classRoomID: String!,
+  $title: String!,
+  $arabicTitle: String!,
+  $description: String!,
+  $arabicDescription: String!,
+  $price: Int!,
+  $image: String!
+) {
+  updateClassRoom(in: {
+    classRoomID: $classRoomID,
+    title: $title,
+    arabicTitle: $arabicTitle,
+    description: $description,
+    arabicDescription: $arabicDescription,
+    price: $price,
+    image: $image
+  }) {
+    classRoomID,
+    title,
+    arabicTitle,
+    description,
+    arabicDescription,
+    image,
+    price,
+    badge,
+    studentCount,
+    rating,
+    teacher {
+      teacherID
+    },
+    chapters {
+      chapterID
+    }
+  }
+}
 
-// `
+`
 
 export const CREATE_PDF = gql`
   mutation CreatePdf(
