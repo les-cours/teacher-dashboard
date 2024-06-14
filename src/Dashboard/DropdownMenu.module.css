@@ -2,7 +2,7 @@
   position: relative;
   display: block;
   min-height: calc(100vh - 80.08px);
-  width: 230px;
+  width: 400px;
   border-radius: 10px 0 0 20px;
   background-color: var(--background-color-dark);
   /* // background-color: red; */
