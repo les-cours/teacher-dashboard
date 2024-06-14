@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
-import "../chapters.css";
+import styles from "./chapters.module.css";
 import { LOAD_CHAPTERS } from "../../GraphQl/Queries";
 import Popup from "reactjs-popup";
 import { DELETE_CHAPTER } from "../../GraphQl/Mutations";
 import { UPDATE_CHAPTER } from "../../GraphQl/Mutations"; // Make sure this path is correct
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 function ChapterUpdate() {
   let { classroomId, chapterId } = useParams();
@@ -109,48 +111,50 @@ function ChapterUpdate() {
   };
 
   return (
-    <div className="chapterUpdate">
-      <div>
+    <div className={styles.chapterUpdate}>
+      <div className={styles.headerChapterUpdate}>
         <h2>وحدة {chapterData.arabicTitle} </h2>
-      </div>
-      <Popup
-        className="popup"
-        trigger={
-          <button style={{ position: "relative", backgroundColor: "red" }}>
-            حذف
-          </button>
-        }
-        modal
-        nested
-      >
-        {(close) => (
-          <div className="modal">
-            <div className="contentPop">
-              <div>
-                <h2>حذف وحدة</h2>
-                <div className="buttonDiv">
-                  <button
-                    style={{ backgroundColor: "#ff4646" }}
-                    onClick={() => close()}
-                  >
-                    إلغاء
-                  </button>
-                  <button
-                    style={{ backgroundColor: "#41d06c" }}
-                    onClick={async () => {
-                      await handleDelete();
-                      close();
-                    }}
-                  >
-                    حذف
-                  </button>
+        <Popup
+          className={styles.popupDelete}
+          trigger={
+            <button>
+              <FontAwesomeIcon icon={faTrashAlt} /> حذف الوحدة
+            </button>
+          }
+          modal
+          nested
+        >
+          {(close) => (
+            <div className={styles.modal}>
+              <div className={styles.contentPop}>
+                <div>
+                  <h2>تأكيد حدف الوحدة</h2>
+                  <p>هل أنت متأكد من حدف هده الوحدة</p>
+                  <div className={styles.buttonDiv}>
+                    <button
+                     
+                      onClick={() => close()}
+                    >
+                      إلغاء
+                    </button>
+                    <button
+                      className={styles.delete}
+                      onClick={async () => {
+                        await handleDelete();
+                        close();
+                      }}
+                    >
+                      حذف
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </Popup>
-      <div className="chapter-form">
+          )}
+        </Popup>
+      </div>
+
+      <div className={styles.chapterForm}>
         <form onSubmit={handleSave}>
           <label>العنوان:</label>
           <input

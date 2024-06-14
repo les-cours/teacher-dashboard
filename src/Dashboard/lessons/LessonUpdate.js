@@ -1,25 +1,22 @@
-
-import React, { useEffect, useState } from 'react'
-import { UPDATE_CHAPTER } from '../../GraphQl/Mutations';
-import { LOAD_CHAPTERS ,LOAD_LESSON_DETAILS} from '../../GraphQl/Queries';
+import React, { useEffect, useState } from "react";
+import { UPDATE_CHAPTER } from "../../GraphQl/Mutations";
+import { LOAD_CHAPTERS, LOAD_LESSON_DETAILS } from "../../GraphQl/Queries";
 import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
-import "../chapters.css";
+import styles from "./lesson.module.css";
 import Popup from "reactjs-popup";
 
-
 function LessonUpdate() {
-    let { classroomId, chapterId, lessonId } = useParams();
-    const navigate = useNavigate()
-    const { loading, error, data,refetch } = useQuery(LOAD_LESSON_DETAILS, {
-      variables: { chapterID: chapterId },
-    });
-    useEffect(() => {
-        if (data) {
-          const lesson = data.lessons.find((item) => item.lessonID === lessonId);
-          
-        }
-      }, [data, lessonId]);
+  let { classroomId, chapterId, lessonId } = useParams();
+  const navigate = useNavigate();
+  const { loading, error, data, refetch } = useQuery(LOAD_LESSON_DETAILS, {
+    variables: { chapterID: chapterId },
+  });
+  useEffect(() => {
+    if (data) {
+      const lesson = data.lessons.find((item) => item.lessonID === lessonId);
+    }
+  }, [data, lessonId]);
   const [lesson, setLesson] = useState(null);
   const [isEditable, setIsEditable] = useState(false);
   const [lessonData, setLessonData] = useState({
@@ -35,7 +32,7 @@ function LessonUpdate() {
       console.log("Navigating to: ", `/classroom/${classroomId}/${chapterId}`);
 
       navigate(`/dashboard/classrooms/${classroomId}/${chapterId}`);
-      refetch()
+      refetch();
     },
     onError: (err) => {
       console.error("Error updating chapter:", err);
@@ -60,7 +57,6 @@ function LessonUpdate() {
     }
   }, [data, lessonId]);
 
-
   if (loading) return <p>Loading...</p>;
 
   const handleInputChange = (e) => {
@@ -77,7 +73,7 @@ function LessonUpdate() {
       await updateChapter({
         variables: {
           chapterID: chapterId,
-          lessonID:lessonId,
+          lessonID: lessonId,
           title: lessonData.title,
           arabicTitle: lessonData.arabicTitle,
           description: lessonData.description,
@@ -101,15 +97,14 @@ function LessonUpdate() {
     setIsEditable(false);
   };
 
-
   return (
-    <div >
+    <div className={styles.updateLesson} style={{ overflow: "hidden" }}>
       <div>
         <h2>درس{lessonData.arabicTitle} </h2>
       </div>
-      <div className="chapter-form">
+      <div className={styles.updateLessonForm}>
         <form onSubmit={handleSave}>
-          <label>Title:</label>
+          <label>العنوان</label>
           <input
             type="text"
             name="title"
@@ -117,7 +112,7 @@ function LessonUpdate() {
             disabled={!isEditable}
             onChange={handleInputChange}
           />
-          <label>Arabic Title:</label>
+          <label>العنوان بالعربية</label>
           <input
             type="text"
             name="arabicTitle"
@@ -125,14 +120,14 @@ function LessonUpdate() {
             disabled={!isEditable}
             onChange={handleInputChange}
           />
-          <label>Description:</label>
+          <label>الوصف</label>
           <textarea
             name="description"
             value={lessonData.description}
             disabled={!isEditable}
             onChange={handleInputChange}
           />
-          <label>Arabic Description:</label>
+          <label>الوصف بالعربية</label>
           <textarea
             name="arabicDescription"
             value={lessonData.arabicDescription}
@@ -141,21 +136,20 @@ function LessonUpdate() {
           />
           {isEditable ? (
             <>
-              <button type="submit">Save</button>
+              <button type="submit">حفظ</button>
               <button type="button" onClick={handleIgnore}>
-                Ignore
+                الغاء
               </button>
             </>
           ) : (
             <button type="button" onClick={() => setIsEditable(true)}>
-              Update
+              تعديل
             </button>
           )}
         </form>
       </div>
     </div>
   );
-
 }
 
-export default LessonUpdate
+export default LessonUpdate;

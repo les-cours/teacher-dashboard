@@ -112,14 +112,13 @@ img {
 }
 
 .ClassroomUpdate {
-  /* Add styles for the main container */
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   max-width: 600px;
   margin: 0 auto;
   background-color: #f9f9f9;
-  direction: rtl; /* Right-to-left text direction */
+  direction: rtl; 
 }
 
 .classroomImg {

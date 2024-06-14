@@ -80,15 +80,13 @@ function LessonDetails() {
             nested
           >
             {(close) => (
-              <div className="modal">
-                <div className="contentPop">
+              
                   <LessonUpdate />
-                </div>
-              </div>
+                
             )}
           </Popup>
           <Popup
-            className="popup"
+            className={styles.popupDelete}
             trigger={
               <button>
                 <FontAwesomeIcon icon={faTrashAlt} /> حذف الدرس
@@ -99,14 +97,32 @@ function LessonDetails() {
           >
             {(close) => (
               <PopupModel>
-                <button
-                  style={{ background: "red", color: "white" }}
-                  onClick={() => {
-                    console.log("id", document.documentID);
-                  }}
-                >
-                  الملف حذف
-                </button>
+                <div style={{ marginRight: "100px" }}>
+                  <h2>تأكيد حدف الدرس</h2>
+                  <p>هل أنت متأكد من حدف هدا الدرس</p>
+                </div>
+
+                <div className={styles.buttonDiv}>
+                  <button
+                    style={{
+                      padding: "8px 20px",
+                    }}
+                    onClick={() => close()}
+                  >
+                    إلغاء
+                  </button>
+                  <button
+                    style={{
+                      padding: "8px 20px",
+                      backgroundColor: "rgb(235, 114, 114)",
+                    }}
+                    onClick={() => {
+                      console.log("الدرس");
+                    }}
+                  >
+                    حذف
+                  </button>
+                </div>
               </PopupModel>
             )}
           </Popup>
@@ -191,18 +207,14 @@ function LessonDetails() {
                     <div className={styles.modalDelete}>
                       <div className={styles.contentPop}>
                         <div>
-                          <h2>حذف الملف</h2>
+                          <h2>تأكيد حدف الملف</h2>
+                          <p>هل أنت متأكد من حدف هدا الملف</p>
 
                           <div className={styles.buttonDiv}>
-                            <button
-                              style={{ backgroundColor: "#ff4646" }}
-                              onClick={() => close()}
-                            >
-                              إلغاء
-                            </button>
+                            <button onClick={() => close()}>إلغاء</button>
 
                             <button
-                              style={{ backgroundColor: "#ff4646" }}
+                              className={styles.delete}
                               onClick={handleDeleteDocument.bind(
                                 this,
                                 document.documentID,

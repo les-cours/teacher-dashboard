@@ -168,3 +168,102 @@ button:focus {
 .addDocument .chooseFileButton:hover {
   background-color: #0b7dda;
 }
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  direction: rtl;
+}
+.formContainer h3 {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  margin-bottom: 10px;
+  max-width: 100%;
+  max-height: 150px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.formContainer button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+}
+
+.formContainer button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.modalDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 400px;
+  background-color: var(--background-color-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 3px 10px rgba(0, 0, 0, 0.2);
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.buttonDiv {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+.updateLesson {
+  background-color: var(--background-color-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 3px 10px rgba(0, 0, 0, 0.2);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+  max-width: 600px;
+  margin-top: 50px;
+}
+.updateLessonForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  direction: rtl;
+}
+.updateLessonForm button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+}
+.updateLessonForm button:hover {
+  background-color: var(--primary-color-dark);
+}

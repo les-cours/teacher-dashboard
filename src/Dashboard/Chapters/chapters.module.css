@@ -1,0 +1,120 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  direction: rtl;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  margin-bottom: 10px;
+  max-width: 100%;
+  max-height: 150px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.formContainer button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+}
+
+.formContainer button:hover {
+  background-color: var(--primary-color-dark);
+}
+.formContainer h3{
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+.chapterUpdate {
+}
+
+.headerChapterUpdate {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerChapterUpdate button {
+  background-color: var(--background-color-dark);
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 10px;
+}
+.chapterForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  direction: rtl;
+}
+.chapterForm button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+}
+.chapterForm button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 400px;
+  background-color: var(--background-color-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 3px 10px rgba(0, 0, 0, 0.2);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: auto;
+}
+.contentPop {
+  padding: 10px;
+}
+
+
+.buttonDiv {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.buttonDiv button{
+    padding: 8px 20px;
+}
+.delete{
+    background-color: rgb(235, 114, 114);
+}

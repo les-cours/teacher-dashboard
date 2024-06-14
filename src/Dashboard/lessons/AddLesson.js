@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CREATE_LESSON } from "../../GraphQl/Mutations";
 import { useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-
+import styles from './lesson.module.css'
 function AddLesson() {
   let { classroomId, chapterId } = useParams();
 
@@ -57,7 +57,8 @@ function AddLesson() {
   };
 
   return (
-    <div className="form-container">
+    <div className={styles.formContainer}>
+      <h3>اضافة درس</h3>
       <form onSubmit={handleFormSubmit}>
         <input
           type="text"
