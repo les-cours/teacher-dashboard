@@ -31,10 +31,10 @@ code {
 }
 
 :root {
-  --primary-color: #a435f0;
+  --primary-color: #001DBC;
   --primary-color-dark: #692199;
-  --secondary-color: #ffc107;
-  --secondary-color-dark: rgb(204, 143, 30);
+  --secondary-color: #ff8b26;
+  --secondary-color-dark: #cc6f1e;
 
   --third-color-dark: #0d1b2a;
   --third-color: #1b263b;

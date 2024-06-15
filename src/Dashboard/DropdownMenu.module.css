@@ -88,7 +88,9 @@ body.dark-mode .dashboard {
 
 .chapters {
   margin-bottom: 12px;
+  transition: 0.3s;
 }
+
 
 .chapterLink {
   display: block;
@@ -104,16 +106,20 @@ body.dark-mode .dashboard {
   margin-bottom: -8px;
 }
 
-.chapterLink:hover {
+.chapterLink:hover , .lessonLink:hover{
   background-color: var(--third-color-dark);
+  scale: 1.05;
 }
+
 
 /* Lessons styles */
 .lessons {
+  margin-right: 32px;
   padding-left: 16px;
 }
 
 .lessonLink {
+
   display: block;
   padding: 8px 16px;
   color: var(--text-color-light);
