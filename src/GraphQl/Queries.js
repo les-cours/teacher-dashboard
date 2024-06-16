@@ -93,3 +93,23 @@ export const LOAD_LESSON_DETAILS = gql`
     }
   }
 `;
+export const GET_DOCUMENTS = `
+  query GetDocuments($lessonID: String!) {
+  documents(lessonID: $lessonID) {
+    documentID
+    documentType
+    title
+    arabicTitle
+    description
+    arabicDescription
+    duration {
+      hours
+      minutes
+      seconds
+    }
+    lectureNumber
+    documentLink
+  }
+}
+
+`;

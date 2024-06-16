@@ -23,6 +23,7 @@ import AddLesson from "./Dashboard/lessons/AddLesson";
 import AddChapter from "./Dashboard/Chapters/AddChapter";
 import LiveReservation from "./Live/LiveReservation";
 import "./App.css";
+import Document from "./Dashboard/lessons/Document";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -128,7 +129,10 @@ function App() {
               </Route>
               <Route path="/profile" element={<Profil />} />
               <Route path="/logout" element={<div>Logout</div>} />
-              <Route path="*" element={<Navigate to="/home" />} />
+              {/* <Route path="/video/:lessonId/:documentId" element={<Document />} /> */}
+              <Route path="/video/:lessonId" element={<Document />} />
+
+              {/* <Route path="*" element={<Navigate to="/home" />} /> */}
             </>
           ) : (
             <>
@@ -140,7 +144,7 @@ function App() {
                 path="/confirm/:teacherID?"
                 element={<TeacherRegister setConnected={setConnected} />}
               />
-              <Route path="*" element={<Navigate to="/login" />} />
+              {/* <Route path="*" element={<Navigate to="/login" />} /> */}
             </>
           )}
         </Routes>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import Popup from "reactjs-popup";
@@ -18,14 +18,36 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import PopupModel from "../../components/Popup";
-
+export const GET_DOCUMENTS = gql`
+  query GetDocuments($lessonID: String!) {
+    documents(lessonID: $lessonID) {
+      documentID
+      documentType
+      title
+      arabicTitle
+      description
+      arabicDescription
+      duration {
+        hours
+        minutes
+        seconds
+      }
+      lectureNumber
+      documentLink
+    }
+  }
+`;
 function LessonDetails() {
   let { classroomId, chapterId, lessonId } = useParams();
 
   const { loading, error, data } = useQuery(LOAD_LESSON_DETAILS, {
     variables: { chapterID: chapterId },
   });
+  const { loading1, error1, x } = useQuery(GET_DOCUMENTS, {
+    variables: { lessonID: lessonId },
+  });
   const [documents, setDocuments] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -35,7 +57,9 @@ function LessonDetails() {
       }
     }
   }, [data, lessonId]);
+
   const [deleteDocument] = useMutation(DELETE_DOCUMENT);
+
   if (loading) return <p>جار التحميل...</p>;
   if (error) return <p>خطأ: {error.message}</p>;
 
@@ -44,13 +68,12 @@ function LessonDetails() {
   if (!lesson) {
     return <div>لم يتم العثور على درس لهذا المعرف.</div>;
   }
+
   const handleDeleteDocument = async (documentID, close) => {
     try {
       console.log("document:", documentID);
       const { data } = await deleteDocument({ variables: { documentID } });
       if (data.deleteDocument.succeeded) {
-        // Refetch the lesson details to update the UI
-        // or you can manually remove the document from the UI state if preferred
         close();
         window.location.reload();
       } else {
@@ -60,6 +83,21 @@ function LessonDetails() {
       alert("خطأ في حذف الملف: " + error.message);
     }
   };
+
+  const videoOnclickHandler = (document) => {
+    const queryParams = new URLSearchParams({
+      documentID: document.documentID,
+      // documentType :document.documentType,
+      // title :document.title,
+      // arabicTitle:document.arabicTitle,
+      // description :document.description,
+      // arabicDescription :document.arabicDescription,
+      documentLink: document.documentLink,
+    }).toString();
+    console.log(document.documentLink);
+     window.open(`/video/${lessonId}?${queryParams}`, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className={styles.lesson}>
       <div className={styles.lessonHeader}>
@@ -79,11 +117,7 @@ function LessonDetails() {
             modal
             nested
           >
-            {(close) => (
-              
-                  <LessonUpdate />
-                
-            )}
+            {(close) => <LessonUpdate />}
           </Popup>
           <Popup
             className={styles.popupDelete}
@@ -150,7 +184,6 @@ function LessonDetails() {
         <thead>
           <tr>
             <th></th>
-
             <th>العنوان</th>
             <th>الوصف</th>
             <th>المدة</th>
@@ -161,7 +194,6 @@ function LessonDetails() {
           {lesson.documents.map((document) => (
             <tr key={document.documentID}>
               <td>{document.lectureNumber}</td>
-
               <td>{document.arabicTitle}</td>
               <td>{document.arabicDescription}</td>
               <td>
@@ -185,6 +217,7 @@ function LessonDetails() {
                   ) : (
                     <FontAwesomeIcon
                       icon={faVideo}
+                      onClick={() => videoOnclickHandler(document)}
                       color="var(--secondary-color)"
                     />
                   )}
@@ -212,7 +245,6 @@ function LessonDetails() {
 
                           <div className={styles.buttonDiv}>
                             <button onClick={() => close()}>إلغاء</button>
-
                             <button
                               className={styles.delete}
                               onClick={handleDeleteDocument.bind(

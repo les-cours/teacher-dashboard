@@ -199,6 +199,8 @@ export const CREATE_PDF = gql`
     }
   }
 `;
+
+
 export const DELETE_DOCUMENT = gql`
   mutation DeleteDocument($documentID: String!) {
     deleteDocument(documentID: $documentID) {
