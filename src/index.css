@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
 body {
   margin: 0;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   direction: rtl;
@@ -32,7 +31,7 @@ code {
 
 :root {
   --primary-color: #001DBC;
-  --primary-color-dark: #692199;
+  --primary-color-dark: #001796;
   --secondary-color: #ff8b26;
   --secondary-color-dark: #cc6f1e;
 

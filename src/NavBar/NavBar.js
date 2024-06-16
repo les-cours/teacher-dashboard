@@ -66,7 +66,7 @@ function NavBar({ setConnected }) {
           الرئيسية
         </Link>
         <Link to="/aboutUs" className={styles.link}>
-          حول التطبيق{" "}
+        التعليقات 
         </Link>
         <Link to="/contactUs" className={styles.link}>
           تواصل معنا{" "}
@@ -75,7 +75,7 @@ function NavBar({ setConnected }) {
           حصة مباشرة
         </Link>
         <Link to="/classrooms" className={styles.link}>
-          لوحة التحكم{" "}
+         دروسي
         </Link>
 
         <div className={styles.profile} ref={profileRef}>

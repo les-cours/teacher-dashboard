@@ -107,8 +107,9 @@ body.dark-mode .dashboard {
 }
 
 .chapterLink:hover , .lessonLink:hover{
-  background-color: var(--third-color-dark);
-  scale: 1.05;
+  background-color: var(--third-color-dark); 
+  scale: 1.03;
+  box-shadow:  20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04);
 }
 
 
@@ -131,10 +132,10 @@ body.dark-mode .dashboard {
   transition: all 0.3s ease;
   background-color: var(--fourth-color);
 }
-
+/* 
 .lessonLink:hover {
   background-color: var(--fourth-color-dark);
-}
+} */
 
 /* Add Chapter and Add Lesson link styles */
 .addChapter,

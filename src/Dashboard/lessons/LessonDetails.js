@@ -191,7 +191,7 @@ function LessonDetails() {
                 </button>
 
                 <button>
-                  <FontAwesomeIcon icon={faEdit} />
+                  <FontAwesomeIcon icon={faEdit} color="var(--third-color)" />
                 </button>
                 <Popup
                   className={styles.popup}
