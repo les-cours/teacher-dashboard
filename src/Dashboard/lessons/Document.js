@@ -11,19 +11,16 @@ const Document = () => {
   console.log(documentLink);
   return (
     <div>
-      <h1>Lesson ID: {lessonId}</h1>
-      <p>Document ID: {documentID}</p>
+      <p>{documentID}</p>
 
       {documentLink ? (
         <video controls width="600">
           <source src={documentLink} type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
       ) : (
-        <p>No video link provided.</p>
+        <p>ليس هناك فيديو</p>
       )}
 
-      {/* Render other properties as needed */}
     </div>
   );
 };

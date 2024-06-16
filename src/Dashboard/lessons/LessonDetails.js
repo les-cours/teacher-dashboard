@@ -95,7 +95,11 @@ function LessonDetails() {
       documentLink: document.documentLink,
     }).toString();
     console.log(document.documentLink);
-     window.open(`/video/${lessonId}?${queryParams}`, "_blank", "noopener,noreferrer");
+    window.open(
+      `/video/${lessonId}?${queryParams}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
