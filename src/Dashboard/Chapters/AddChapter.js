@@ -6,7 +6,6 @@ import styles from "./chapters.module.css"
 function AddChapter() {
   let { classroomId } = useParams();
 
-
   const [formData, setFormData] = useState({
     title: "",
     arabicTitle: "",

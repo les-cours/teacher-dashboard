@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  justify-content: center;
+
+  background-color: aqua;
+  height: calc(100vh - 80px);
+}
+.containerContent {
+  max-width: 800px;
+  background-color: bisque;
+  padding: 10px;
+}
+.videoContainer {
+  height: 400px;
+  width: 700px;
+  background-color: blue;
+}
+.commentsContainer {
+  min-width: none;
+  min-height: 50px;
+  border: 1px solid black;
+  padding: 10px;
+  display: block;
+  background-color: aliceblue;
+}
+.comment {
+  display: flex;
+  background-color: rgb(223, 223, 223);
+  margin-bottom: 8px;
+  padding: 5px;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: aqua;
+  margin: 14px 5px;
+
+}
+.commentHeader {
+  min-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.iconsd button{
+    padding: 7px 12px;
+    background-color: rgb(185, 182, 182);
+    margin-left: 5px;
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+.content button{
+     padding: 4px;
+     margin: 5px;
+}
+.replies{
+    background-color: rgb(225, 233, 240);
+    padding: 5px;
+    margin-bottom: 8px;
+}

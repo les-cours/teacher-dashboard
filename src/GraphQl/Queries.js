@@ -113,3 +113,24 @@ export const GET_DOCUMENTS = `
 }
 
 `;
+
+export const GET_COMMENTS = gql`
+  query Comments($documentID: String!, $replied: Boolean!) {
+    comments(documentID: $documentID, replied: $replied) {
+      id
+      user {
+        id
+        username
+        firstName
+        lastName
+        avatar
+      }
+      repliedTo
+      content
+      documentID
+      timestamp
+      isTeacher
+      edited
+    }
+  }
+`;

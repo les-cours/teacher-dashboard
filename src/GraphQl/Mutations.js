@@ -208,3 +208,18 @@ export const DELETE_DOCUMENT = gql`
     }
   }
 `;
+
+export const CREATE_COMMENT = gql`
+  mutation CreateComment($content: String!, $documentID: String!, $isTeacher: Boolean!) {
+    createComment(input: { content: $content, documentID: $documentID, isTeacher: $isTeacher }) {
+      succeeded
+    }
+  }
+`;
+export const CREATE_REPLY = gql`
+  mutation CreateReply($content: String!, $repliedTo: String!, $documentID: String!, $isTeacher: Boolean!) {
+    createReply(input: { content: $content, repliedTo: $repliedTo, documentID: $documentID, isTeacher: $isTeacher }) {
+      succeeded
+    }
+  }
+`;

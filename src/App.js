@@ -8,7 +8,7 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Classrooms from "./Dashboard/Classrooms";
 import Dashboard from "./Dashboard/Dashboard";
 import NavBar from "./NavBar/NavBar";
@@ -24,6 +24,7 @@ import AddChapter from "./Dashboard/Chapters/AddChapter";
 import LiveReservation from "./Live/LiveReservation";
 import "./App.css";
 import Document from "./Dashboard/lessons/Document";
+import AboutUs from "./AboutUs";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -101,7 +102,7 @@ function App() {
                   </div>
                 }
               />
-              <Route path="/aboutUs" element={<div>About Us</div>} />
+              <Route path="/aboutUs" element={<AboutUs />} />
               <Route path="/contactUs" element={<div>Contact Us</div>} />
               <Route path="/Live" element={<LiveReservation />} />
               <Route path="/" element={<Dashboard />}>
@@ -132,7 +133,7 @@ function App() {
               {/* <Route path="/video/:lessonId/:documentId" element={<Document />} /> */}
               <Route path="/video/:lessonId" element={<Document />} />
 
-              {/* <Route path="*" element={<Navigate to="/home" />} /> */}
+              <Route path="*" element={<Navigate to="/home" />} />
             </>
           ) : (
             <>
@@ -144,7 +145,7 @@ function App() {
                 path="/confirm/:teacherID?"
                 element={<TeacherRegister setConnected={setConnected} />}
               />
-              {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+              <Route path="*" element={<Navigate to="/login" />} />
             </>
           )}
         </Routes>

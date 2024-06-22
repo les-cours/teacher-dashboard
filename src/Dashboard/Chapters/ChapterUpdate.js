@@ -60,7 +60,7 @@ function ChapterUpdate() {
   const [deleteChapter] = useMutation(DELETE_CHAPTER, {
     onCompleted: () => {
       console.log("Chapter deleted successfully.");
-      navigate(`/classroom/${classroomId}`);
+      navigate(`/classrooms/${classroomId}`);
     },
     onError: (err) => {
       console.error("Error deleting chapter:", err);

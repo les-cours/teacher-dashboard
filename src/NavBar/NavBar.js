@@ -11,9 +11,7 @@ function NavBar({ setConnected }) {
   const [isProfileInfoVisible, setProfileInfoVisible] = useState(false);
   const profileRef = useRef(null);
 
-  /*
-  functions
-  */
+
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.body.classList.toggle("dark-mode");
@@ -21,18 +19,14 @@ function NavBar({ setConnected }) {
   };
 
   useEffect(() => {
-    // Retrieve the userInfo from localStorage
     const userInfo = localStorage.getItem("userInfo");
     setProfileInfoVisible(false);
     if (userInfo) {
-      // Parse the JSON string to get the user object
       const user = JSON.parse(userInfo);
-      // Extract the avatar property
       const avatarSVG = user.avatar;
       setAvatar(avatarSVG);
     }
 
-    // Event listener to close profile info when clicking outside
     function handleClickOutside(event) {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setProfileInfoVisible(false);
@@ -66,7 +60,7 @@ function NavBar({ setConnected }) {
           الرئيسية
         </Link>
         <Link to="/aboutUs" className={styles.link}>
-        التعليقات 
+          التعليقات
         </Link>
         <Link to="/contactUs" className={styles.link}>
           تواصل معنا{" "}
@@ -75,7 +69,7 @@ function NavBar({ setConnected }) {
           حصة مباشرة
         </Link>
         <Link to="/classrooms" className={styles.link}>
-         دروسي
+          دروسي
         </Link>
 
         <div className={styles.profile} ref={profileRef}>

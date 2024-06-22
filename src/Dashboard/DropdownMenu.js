@@ -19,7 +19,7 @@ const DropdownMenu = () => {
       setLessonVisibility(initialVisibilityState);
     }
     refetch();
-  }, [data, refetch]);
+  }, [data]);
 
   const toggleLessonVisibility = (chapterIndex) => {
     const updatedVisibility = [...lessonVisibility];
@@ -33,13 +33,7 @@ const DropdownMenu = () => {
     setChapterVisibility(updatedVisibility);
   };
 
-  const handleAddChapter = (classroomId) => {
-    console.log(`Add chapter to classroom ${classroomId}`);
-  };
 
-  const handleAddLesson = (chapterId) => {
-    console.log(`Add lesson to chapter ${chapterId}`);
-  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -62,8 +56,7 @@ const DropdownMenu = () => {
                 <Link
                   to={`classrooms/${classroomId}/addChapter`}
                   className={styles.addChapter}
-                  onClick={() => handleAddChapter(item.classRoomID)}
-                >
+                  >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24px"
@@ -95,7 +88,6 @@ const DropdownMenu = () => {
                               to={{
                                 pathname: `classrooms/${classroomId}/${chapterId}/addLesson`,
                               }}
-                              onClick={() => handleAddLesson(chapter.chapterID)}
                               className={styles.addLesson}
                             >
                               <svg

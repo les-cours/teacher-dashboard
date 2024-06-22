@@ -8,6 +8,8 @@ import { DELETE_DOCUMENT } from "../../GraphQl/Mutations";
 import LessonUpdate from "./LessonUpdate";
 import { LOAD_LESSON_DETAILS } from "../../GraphQl/Queries";
 import styles from "./lesson.module.css";
+import Document from "./Document";
+import DocumentDetails from "./DocumentDetails";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,6 +20,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import PopupModel from "../../components/Popup";
+
 export const GET_DOCUMENTS = gql`
   query GetDocuments($lessonID: String!) {
     documents(lessonID: $lessonID) {
@@ -37,31 +40,35 @@ export const GET_DOCUMENTS = gql`
     }
   }
 `;
+
 function LessonDetails() {
   let { classroomId, chapterId, lessonId } = useParams();
 
   const { loading, error, data } = useQuery(LOAD_LESSON_DETAILS, {
     variables: { chapterID: chapterId },
   });
-  const { loading1, error1, x } = useQuery(GET_DOCUMENTS, {
+  const {
+    loading1,
+    error1,
+    data: documentsData,
+  } = useQuery(GET_DOCUMENTS, {
     variables: { lessonID: lessonId },
   });
+
   const [documents, setDocuments] = useState([]);
+  const [viewingVideo, setViewingVideo] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState(null); // State to hold the selected document/video
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (data) {
-      const lesson = data.lessons.find((item) => item.lessonID === lessonId);
-      if (lesson) {
-        setDocuments(lesson.documents);
-      }
-    }
-  }, [data, lessonId]);
-
   const [deleteDocument] = useMutation(DELETE_DOCUMENT);
 
-  if (loading) return <p>جار التحميل...</p>;
-  if (error) return <p>خطأ: {error.message}</p>;
+  useEffect(() => {
+    if (documentsData) {
+      setDocuments(documentsData.documents);
+    }
+  }, [documentsData]);
+
+  if (loading || loading1) return <p>جار التحميل...</p>;
+  if (error || error1) return <p>خطأ: {error.message || error1.message}</p>;
 
   const lesson = data.lessons.find((item) => item.lessonID === lessonId);
 
@@ -75,7 +82,8 @@ function LessonDetails() {
       const { data } = await deleteDocument({ variables: { documentID } });
       if (data.deleteDocument.succeeded) {
         close();
-        window.location.reload();
+        // Update documents list without reloading the page
+        setDocuments(documents.filter((doc) => doc.documentID !== documentID));
       } else {
         alert("فشل في حذف الملف");
       }
@@ -85,21 +93,14 @@ function LessonDetails() {
   };
 
   const videoOnclickHandler = (document) => {
-    const queryParams = new URLSearchParams({
-      documentID: document.documentID,
-      // documentType :document.documentType,
-      // title :document.title,
-      // arabicTitle:document.arabicTitle,
-      // description :document.description,
-      // arabicDescription :document.arabicDescription,
-      documentLink: document.documentLink,
-    }).toString();
-    console.log(document.documentLink);
-    window.open(
-      `/video/${lessonId}?${queryParams}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    // Set the selected document/video to display in Document component
+    setSelectedDocument(document);
+    setViewingVideo(true); // Set viewingVideo to true to render Document component
+  };
+
+  const backToTableHandler = () => {
+    setViewingVideo(false); // Set viewingVideo back to false to render the table view
+    setSelectedDocument(null); // Clear selectedDocument when returning to table view
   };
 
   return (
@@ -136,8 +137,8 @@ function LessonDetails() {
             {(close) => (
               <PopupModel>
                 <div style={{ marginRight: "100px" }}>
-                  <h2>تأكيد حدف الدرس</h2>
-                  <p>هل أنت متأكد من حدف هدا الدرس</p>
+                  <h2>تأكيد حذف الدرس</h2>
+                  <p>هل أنت متأكد من حذف هذا الدرس</p>
                 </div>
 
                 <div className={styles.buttonDiv}>
@@ -184,92 +185,103 @@ function LessonDetails() {
         </div>
       </div>
 
-      <table className={styles.documentTable} border="1">
-        <thead>
-          <tr>
-            <th></th>
-            <th>العنوان</th>
-            <th>الوصف</th>
-            <th>المدة</th>
-            <th>رابط الملف</th>
-          </tr>
-        </thead>
-        <tbody>
-          {lesson.documents.map((document) => (
-            <tr key={document.documentID}>
-              <td>{document.lectureNumber}</td>
-              <td>{document.arabicTitle}</td>
-              <td>{document.arabicDescription}</td>
-              <td>
-                {document.documentType === "pdf" ? (
-                  <>/</>
-                ) : (
-                  <div>
-                    {document.duration.hours}س {document.duration.minutes}د{" "}
-                    {document.duration.seconds}ث
-                  </div>
-                )}
-              </td>
-
-              <td className={styles.actions}>
-                <button>
+      {/* Conditional rendering based on viewingVideo state */}
+      {viewingVideo && selectedDocument ? (
+        <div className={styles.documentViewer}>
+          {/* Render Document component */}
+          
+          <button onClick={backToTableHandler}>العودة إلى الجدول</button>
+          <DocumentDetails document={selectedDocument}/>
+          
+        </div>
+      ) : (
+        <table className={styles.documentTable} border="1">
+          <thead>
+            <tr>
+              <th></th>
+              <th>العنوان</th>
+              <th>الوصف</th>
+              <th>المدة</th>
+              <th>رابط الملف</th>
+            </tr>
+          </thead>
+          <tbody>
+            {lesson.documents.map((document) => (
+              <tr key={document.documentID}>
+                <td>{document.lectureNumber}</td>
+                <td>{document.arabicTitle}</td>
+                <td>{document.arabicDescription}</td>
+                <td>
                   {document.documentType === "pdf" ? (
-                    <FontAwesomeIcon
-                      icon={faFilePdf}
-                      color="var(--primary-color)"
-                    />
+                    <>/</>
                   ) : (
-                    <FontAwesomeIcon
-                      icon={faVideo}
-                      onClick={() => videoOnclickHandler(document)}
-                      color="var(--secondary-color)"
-                    />
+                    <div>
+                      {document.duration.hours}س {document.duration.minutes}د{" "}
+                      {document.duration.seconds}ث
+                    </div>
                   )}
-                </button>
+                </td>
 
-                <button>
-                  <FontAwesomeIcon icon={faEdit} color="var(--third-color)" />
-                </button>
-                <Popup
-                  className={styles.popup}
-                  trigger={
-                    <button>
-                      <FontAwesomeIcon icon={faTrashAlt} color="#C80036" />
-                    </button>
-                  }
-                  modal
-                  nested
-                >
-                  {(close) => (
-                    <div className={styles.modalDelete}>
-                      <div className={styles.contentPop}>
-                        <div>
-                          <h2>تأكيد حدف الملف</h2>
-                          <p>هل أنت متأكد من حدف هدا الملف</p>
+                <td className={styles.actions}>
+                  <button>
+                    {document.documentType === "pdf" ? (
+                      <FontAwesomeIcon
+                        icon={faFilePdf}
+                        color="var(--primary-color)"
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faVideo}
+                        onClick={() => videoOnclickHandler(document)}
+                        color="var(--secondary-color)"
+                      />
+                    )}
+                  </button>
 
-                          <div className={styles.buttonDiv}>
-                            <button onClick={() => close()}>إلغاء</button>
-                            <button
-                              className={styles.delete}
-                              onClick={handleDeleteDocument.bind(
-                                this,
-                                document.documentID,
-                                close
-                              )}
-                            >
-                              حذف
-                            </button>
+                  <button>
+                    <FontAwesomeIcon icon={faEdit} color="var(--third-color)" />
+                  </button>
+                  <Popup
+                    className={styles.popup}
+                    trigger={
+                      <button>
+                        <FontAwesomeIcon icon={faTrashAlt} color="#C80036" />
+                      </button>
+                    }
+                    modal
+                    nested
+                  >
+                    {(close) => (
+                      <div className={styles.modalDelete}>
+                        <div className={styles.contentPop}>
+                          <div>
+                            <h2>تأكيد حدف الملف</h2>
+                            <p>هل أنت متأكد من حدف هدا الملف</p>
+
+                            <div className={styles.buttonDiv}>
+                              <button onClick={() => close()}>إلغاء</button>
+                              <button
+                                className={styles.delete}
+                                onClick={handleDeleteDocument.bind(
+                                  this,
+                                  document.documentID,
+                                  close
+                                )}
+                              >
+                                حذف
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </Popup>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    )}
+                  </Popup>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
