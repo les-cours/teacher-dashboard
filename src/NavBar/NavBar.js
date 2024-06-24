@@ -52,7 +52,10 @@ function NavBar({ setConnected }) {
   return (
     <div className={styles.navBar}>
       <div className={styles.logoDiv}>
+        <Link to="/" style={{all:"unset", cursor:"pointer"}}>
         <img src={logo} alt="Logo" />
+        </Link>
+        
       </div>
 
       <div className={styles.linksDiv} style={{ marginLeft: "40px" }}>
