@@ -82,7 +82,7 @@ function Comment({ comment }) {
       <div className={styles.avatar}>
         <img src={comment.user.avatar} alt="Avatar" />
       </div>
-      <div>
+      <div className={styles.commentContent}>
         <div className={styles.commentHeader}>
           <div>{comment.user.username}</div>
           <div className={styles.iconsd}>

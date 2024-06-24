@@ -3,31 +3,37 @@
   justify-content: center;
 
   height: calc(100vh - 80px);
+  background-color: red;
 }
 .containerContent {
-  max-width: 800px;
-  background-color: bisque;
-  padding: 10px;
+  min-width: 100%;
+  padding: 20px 130px;
+  background-color: var(--background-color-dark);
 }
 .videoContainer {
-  height: 400px;
-  width: 700px;
+  height: 600px;
+  width: 100%;
+  background-color: yellow;
 
 }
 .commentsContainer {
   min-width: none;
   min-height: 50px;
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   padding: 10px;
   display: block;
-  background-color: aliceblue;
+  background-color: var(--background-color-side);
 }
 .comment {
   display: flex;
-  background-color: rgb(223, 223, 223);
+
   margin-bottom: 8px;
   padding: 5px;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
 }
 
 .avatar {
@@ -38,14 +44,22 @@
   width: 50px;
   border-radius: 50%;
   background-color: aqua;
-  margin: 14px 5px;
+  margin-right: 5px;
 
 }
+
+.commentContent {
+
+
+
+}
+
 .commentHeader {
   min-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 .iconsd button{
     padding: 7px 12px;
@@ -55,6 +69,9 @@
 .content{
     display: flex;
     justify-content: space-between;
+}
+.comment p {
+  color: var(--text-color);
 }
 .content button{
      padding: 4px;
