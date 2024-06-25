@@ -89,5 +89,5 @@ body.dark-mode {
 }
 
 .contentPop {
-  background-color: blue;
+  background-color: var(--primary-color);
 }

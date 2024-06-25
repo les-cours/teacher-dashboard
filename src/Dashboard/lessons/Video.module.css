@@ -23,62 +23,34 @@
   padding: 10px;
   display: block;
   background-color: var(--background-color-side);
-}
-.comment {
-  display: flex;
-
-  margin-bottom: 8px;
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-
+  margin-top: 24px;
 }
 
-.avatar {
+.commentsContainer h3 {
+  font-weight: 700;
+  display: inline-block;
+}
+
+
+
+
+.commentInput {
+  margin-bottom: 12px;
+  padding: 12px;
   display: flex;
-  align-items: center;
+  gap: 12px;
   justify-content: center;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  background-color: aqua;
-  margin-right: 5px;
-
 }
 
-.commentContent {
-width: 100%;
-
+.commentInput button {
+  background-color: var(--primary-color);
 }
 
-.commentHeader {
-  min-width: 600px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-}
-.iconsd button{
-    padding: 7px 12px;
-    background-color: rgb(185, 182, 182);
-    margin-left: 5px;
-}
-.content{
-    display: flex;
-    justify-content: space-between;
-}
-.comment p {
-  color: var(--text-color);
-}
-.content button{
-     padding: 4px;
-     margin: 5px;
-}
-.replies{
-    background-color: rgb(225, 233, 240);
-    padding: 5px;
-    margin-bottom: 8px;
+.commentInput input{
+  all: unset;
+  width: 100%;
+  display: inline-block;
+  padding: 12px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
 }

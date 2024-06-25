@@ -42,6 +42,7 @@ function Login({ setConnected }) {
         avatar: decodedToken.avatar,
       };
 
+
       localStorage.setItem("token", response.data.user.accessToken);
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
       setConnected(true);

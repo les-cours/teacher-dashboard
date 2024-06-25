@@ -7,7 +7,7 @@ const Document = ({document}) => {
       <p>{document.id}</p>
 
       {document.documentLink ? (
-        <video controls width="600">
+        <video controls >
           <source src={document.documentLink } type="video/mp4" />
         </video>
       ) : (

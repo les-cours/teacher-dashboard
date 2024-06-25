@@ -74,17 +74,20 @@ function DocumentDetails({ document }) {
         <div className={styles.commentsContainer}>
           <h3>التعليقات : </h3>
           <form onSubmit={handleSubmit} style={{marginBottom:"5px"}}>
-            <div>
+            <div className={styles.commentInput}>
               <input
+            
                 type="text"
                 placeholder="اضافة تعليق ..."
                 required
               />
-            </div>
-            <button type="submit">
+                <button type="submit">
               تعليق
             </button>
+            </div>
+          
           </form>
+
           {comments.length !== 0 ? (
             <Comments comments={comments} />
           ) : (
