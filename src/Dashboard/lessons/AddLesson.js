@@ -12,6 +12,7 @@ function AddLesson() {
     arabicTitle: "",
     description: "",
     arabicDescription: "",
+    order : 1,
   });
 
   useEffect(() => {
@@ -21,6 +22,7 @@ function AddLesson() {
         arabicTitle: "",
         description: "",
         arabicDescription: "",
+        order: 1,
       });
     }
   }, [formData]);
@@ -46,6 +48,7 @@ function AddLesson() {
           title: formData.title,
           arabicTitle: formData.arabicTitle,
           description: formData.description,
+          order: formData.order,
           //   arabicDescription: formData.arabicDescription,
         },
       });
@@ -57,8 +60,10 @@ function AddLesson() {
   };
 
   return (
+    <div className={styles.AddLesson}>
+      
     <div className={styles.formContainer}>
-      <h3>اضافة درس</h3>
+    <h3>اضافة درس</h3>
       <form onSubmit={handleFormSubmit}>
         <input
           type="text"
@@ -76,7 +81,7 @@ function AddLesson() {
           placeholder="اسم الدرس باللاتينية"
           required
         />
-        <input
+        <textarea
           type="text"
           name="description"
           value={formData.description}
@@ -84,7 +89,7 @@ function AddLesson() {
           placeholder="وصف الدرس"
           required
         />
-        <input
+        <textarea
           type="text"
           name="arabicDescription"
           value={formData.arabicDescription}
@@ -92,12 +97,14 @@ function AddLesson() {
           placeholder="وصف الدرس باللاتينية"
           required
         />
+        <input type="number" value={FormData.order} onChange={handleChange}/>
         <button type="submit" disabled={mutationLoading}>
           إضافة
         </button>
       </form>
       {mutationLoading && <p>Loading...</p>}
       {mutationError && <p>Error: {mutationError.message}</p>}
+    </div>
     </div>
   );
 }

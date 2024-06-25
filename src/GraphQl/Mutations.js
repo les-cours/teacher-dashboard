@@ -61,6 +61,7 @@ export const CREATE_LESSON = gql`
     $title: String!
     $arabicTitle: String!
     $description: String!
+    $order: Int!
   ) {
     createLesson(
       in: {
@@ -68,12 +69,14 @@ export const CREATE_LESSON = gql`
         title: $title
         arabicTitle: $arabicTitle
         description: $description
+        order: $order
       }
     ) {
       lessonID
       arabicTitle
       title
       description
+  
     }
   }
 `;

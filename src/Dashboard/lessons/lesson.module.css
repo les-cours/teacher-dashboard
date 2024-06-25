@@ -270,3 +270,79 @@ textarea {
 .updateLessonForm button:hover {
   background-color: var(--primary-color-dark);
 }
+
+
+.AddLesson{  
+  min-height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 250px;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+ 
+  margin: 0 auto;
+
+  direction: rtl;
+  padding: 24px;
+}
+
+.formContainer h3 {
+  color: var(--text-color);
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.formContainer input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.formContainer span {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+.formContainer button {
+  padding: 12px 24px;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+   background-color: transparent;
+  color: var(--text-color-light);
+  text-decoration: underline;
+  background-color: var(--primary-color);
+  width: 100%;
+
+} 
+
+.formContainer button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+}
+
+.formContainer button:hover {
+  background-color: var(--primary-color-dark);
+}
+.formContainer h3{
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
