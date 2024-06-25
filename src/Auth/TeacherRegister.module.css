@@ -1,25 +1,69 @@
- /*form {
-    max-width: 400px;
-    width: 400px;
+ .registerContainer{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 250px;
+ }
+ .register {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+  min-height: 50vh;
+  
+ }
+
+ .registerLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-left: none;
+ }
+
+ .registerForm {
+  border: 1px solid var(--border-color);
+  /* background-color: violet; */
+ 
+ }
+
+ .registerFormHeader {
+
+  width: max-content;
+  margin: 0 auto;
+
+ }
+
+ .registerForm h3 {
+color: var(--text-color);
+font-weight: 700;
+font-size: 36px;
+ }
+
+ .registerForm p {
+  color: var(--text-color);
+  font-weight: 400;
+ }
+
+ .register form {
+
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    
+    border: none;
+  
   }
 
   
-  form div {
+  .register form div {
     margin-bottom: 15px;
   }
   
-  label {
+  .register label {
     display: block;
     font-weight: bold;
   }
   
-  input {
+  .register input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -27,26 +71,65 @@
     font-size: 16px;
   }
   
-   span {
+  .register span {
     color: #e74c3c;
     font-size: 14px;
     margin-top: 5px;
     display: block;
   }
   
-  button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 15px;
+  .register button {
+    padding: 12px 24px;
+    font-weight: 700;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+     background-color: transparent;
+    color: var(--text-color-light);
+    text-decoration: underline;
+    background-color: var(--primary-color);
+    width: 100%;
+ 
   } 
   
-  button:hover {
-    background-color: #2980b9;
+  .register select {
+    background-color: var(--background-color);
+    height: 100% !important;
+  }
+  .register button:hover {
+    background-color: var(--primary-color-dark);
   }  
  
-*/
+
+
+  .Input {
+  
+    margin-bottom: 8px;
+    padding: 6px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+   
+    align-items: center;
+
+  
+  }
+  
+  .Input button {
+    background-color: var(--primary-color);
+    padding: 0px 24px;
+    color:var(--text-color-light);
+  }
+  
+  .Input label {
+    color: var(--text-color);
+  }
+  .Input input{
+    all: unset;
+    display: inline-block;
+    padding: 12px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+  }
+

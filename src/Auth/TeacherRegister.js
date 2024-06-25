@@ -94,11 +94,26 @@ function TeacherRegister({ setConnected }) {
   if (loading) return <p>جاري ...</p>;
   if (error) return <p>خطا في تحميل المدن</p>;
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.registerContainer}>
+    <div className={styles.register}>
+   
+
+
+   <div className={styles.registerLogo}>
+        <img alt="logo" src="https://firebasestorage.googleapis.com/v0/b/uploadingfile-90303.appspot.com/o/images%2F20240624_222408.png?alt=media&token=65c1cf04-d86a-4136-a87c-80a990fe845c"/>
+      </div>
+
+      <div className={styles.registerForm}>
+    <div className={styles.registerFormHeader}>
+    <h3>سجل الآن!</h3>
+    <p>يرجى ملء جميع الحقول</p>
+    </div>
+    
+   <form onSubmit={handleSubmit}>
         {err != "" && <p style={{ color: "red" }}>{err}</p>}
-        <div>
-          <label htmlFor="firstName">الاسم:</label>
+
+        <div className={styles.Input}>
+        <label htmlFor="firstName">الاسم:</label>
           <input
             type="text"
             id="firstName"
@@ -107,8 +122,14 @@ function TeacherRegister({ setConnected }) {
             value={formData.firstName}
             onChange={handleChange}
           />
-        </div>
-        <div>
+           </div>
+
+
+   
+
+
+      
+           <div className={styles.Input}>
           <label htmlFor="lastName">اللقب:</label>
           <input
             type="text"
@@ -119,10 +140,10 @@ function TeacherRegister({ setConnected }) {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className={styles.Input}>
           <label htmlFor="birthDate">تاريخ الميلاد:</label>
           <input
-            type="text"
+            type="date"
             id="birthDate"
             name="birthDate"
             required
@@ -130,7 +151,7 @@ function TeacherRegister({ setConnected }) {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className={styles.Input}>
           <label htmlFor="phoneNumber">رقم الهاتف:</label>
           <input
             type="text"
@@ -140,7 +161,7 @@ function TeacherRegister({ setConnected }) {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className={styles.Input}>
           <label>المدينة</label>
           <Select
             placeholder={<div>اختر مدينتك</div>}
@@ -182,16 +203,16 @@ function TeacherRegister({ setConnected }) {
             }}
           />
         </div>
-        <div>
+        <div className={styles.Input}>
           <label>الجنس:</label>
-          <select name="gender" value={formData.gender} onChange={handleChange}>
+          <select name="gender" value={formData.gender} onChange={handleChange} style={{width:"max-content"}}>
             <option value="">اختر الجنس</option>
             <option value="M">ذكر</option>
             <option value="F">أنثى</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="password">الباسورد:</label>
+        <div className={styles.Input}>
+          <label htmlFor="password">الباسورد</label>
           <input
             type="password"
             id="password"
@@ -199,14 +220,21 @@ function TeacherRegister({ setConnected }) {
             value={formData.password}
             onChange={handleChange}
           />
+          
         </div>
         {/* <div>
       <label htmlFor="confirmPassword">تاكيد الباسورد:</label>
       <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
     </div> */}
-        <button type="submit">Submit</button>
+        <button type="submit" style={{textDecoration:"none"}}>انضم الان</button>
       </form>
+   </div>
+
+   
+
     </div>
+    </div>
+
   );
 }
 
