@@ -67,8 +67,11 @@ function AddChapter() {
   };
 
   return (
+    <div className={styles.AddChapter}>
+    
     <div className={styles.formContainer}>
-      <h3>اضافة وحدة</h3>
+    <h3>اضافة وحدة</h3>
+  
       <form onSubmit={handleFormSubmit}>
         <input
           type="text"
@@ -86,28 +89,27 @@ function AddChapter() {
           placeholder="اسم الوحدة باللاتينية"
           required
         />
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          placeholder="وصف الوحدة"
-          required
-        />
-        <input
-          type="text"
-          name="arabicDescription"
-          value={formData.arabicDescription}
-          onChange={handleChange}
-          placeholder="وصف الوحدة باللاتينية"
-          required
-        />
+   <textarea
+    name="description"
+    value={formData.description}
+    onChange={handleChange}
+    placeholder="وصف الوحدة"
+    required
+  />
+  <textarea
+    name="arabicDescription"
+    value={formData.arabicDescription}
+    onChange={handleChange}
+    placeholder="وصف الوحدة باللاتينية"
+    required
+  />
         <button type="submit" disabled={mutationLoading}>
           إضافة
         </button>
       </form>
       {mutationLoading && <p>Loading...</p>}
       {mutationError && <p>Error: {mutationError.message}</p>}
+    </div>
     </div>
   );
 }
