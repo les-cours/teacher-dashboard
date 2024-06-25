@@ -38,6 +38,19 @@ export const LOAD_MY_CLASSROOMS = gql`
     }
   }
 `;
+export const LOAD_MY_CHATROOMS = gql`
+  query GetMyClassRoomsTeacher {
+    MyClassRoomsTeacher {
+      classRoomID
+      title
+      image
+      studentCount
+      arabicTitle
+      description
+      arabicDescription
+    }
+  }
+`;
 export const LOAD_CLASSROOM_INFO = gql`
   query ClassRoom($classRoomID: String!) {
     classRoom(classRoomID: $classRoomID) {
@@ -134,3 +147,44 @@ export const GET_COMMENTS = gql`
     }
   }
 `;
+export const LOAD_ROOM_MESSAGES = gql`
+  query GetRoomMessages($roomID: String!) {
+    room(roomID: $roomID) {
+      name
+      teacher {
+        id
+        username
+      }
+      users {
+        id
+        paid
+      }
+      messages {
+        id
+        message
+        timestamp
+        isTeacher
+        owner {
+          username
+          lastName
+          paid
+          avatar
+        }
+      }
+    }
+  }
+`;
+export const LOAD_CHAT_USERS = gql`
+query GetRoomUsers($roomID: String!) {
+  room(roomID: $roomID) {
+    users {
+      id
+      username
+      firstName
+      lastName
+      avatar
+      paid
+    }
+  }
+}`
+

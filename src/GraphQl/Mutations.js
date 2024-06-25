@@ -85,8 +85,20 @@ export const DELETE_CHAPTER = gql`
   }
 `;
 export const UPDATE_CHAPTER = gql`
-  mutation UpdateChapter($chapterID: String!, $title: String!, $arabicTitle: String!, $description: String!) {
-    updateChapter(in: {chapterID: $chapterID, title: $title, arabicTitle: $arabicTitle, description: $description}) {
+  mutation UpdateChapter(
+    $chapterID: String!
+    $title: String!
+    $arabicTitle: String!
+    $description: String!
+  ) {
+    updateChapter(
+      in: {
+        chapterID: $chapterID
+        title: $title
+        arabicTitle: $arabicTitle
+        description: $description
+      }
+    ) {
       chapterID
       title
       arabicTitle
@@ -122,44 +134,45 @@ export const UPDATE_TEACHER = gql`
   }
 `;
 export const UPDATE_CLASSROOM = gql`
-mutation updateClassRoom(
-  $classRoomID: String!,
-  $title: String!,
-  $arabicTitle: String!,
-  $description: String!,
-  $arabicDescription: String!,
-  $price: Int!,
-  $image: String!
-) {
-  updateClassRoom(in: {
-    classRoomID: $classRoomID,
-    title: $title,
-    arabicTitle: $arabicTitle,
-    description: $description,
-    arabicDescription: $arabicDescription,
-    price: $price,
-    image: $image
-  }) {
-    classRoomID,
-    title,
-    arabicTitle,
-    description,
-    arabicDescription,
-    image,
-    price,
-    badge,
-    studentCount,
-    rating,
-    teacher {
-      teacherID
-    },
-    chapters {
-      chapterID
+  mutation updateClassRoom(
+    $classRoomID: String!
+    $title: String!
+    $arabicTitle: String!
+    $description: String!
+    $arabicDescription: String!
+    $price: Int!
+    $image: String!
+  ) {
+    updateClassRoom(
+      in: {
+        classRoomID: $classRoomID
+        title: $title
+        arabicTitle: $arabicTitle
+        description: $description
+        arabicDescription: $arabicDescription
+        price: $price
+        image: $image
+      }
+    ) {
+      classRoomID
+      title
+      arabicTitle
+      description
+      arabicDescription
+      image
+      price
+      badge
+      studentCount
+      rating
+      teacher {
+        teacherID
+      }
+      chapters {
+        chapterID
+      }
     }
   }
-}
-
-`
+`;
 
 export const CREATE_PDF = gql`
   mutation CreatePdf(
@@ -200,7 +213,6 @@ export const CREATE_PDF = gql`
   }
 `;
 
-
 export const DELETE_DOCUMENT = gql`
   mutation DeleteDocument($documentID: String!) {
     deleteDocument(documentID: $documentID) {
@@ -210,15 +222,56 @@ export const DELETE_DOCUMENT = gql`
 `;
 
 export const CREATE_COMMENT = gql`
-  mutation CreateComment($content: String!, $documentID: String!, $isTeacher: Boolean!) {
-    createComment(input: { content: $content, documentID: $documentID, isTeacher: $isTeacher }) {
+  mutation CreateComment(
+    $content: String!
+    $documentID: String!
+    $isTeacher: Boolean!
+  ) {
+    createComment(
+      input: {
+        content: $content
+        documentID: $documentID
+        isTeacher: $isTeacher
+      }
+    ) {
       succeeded
     }
   }
 `;
 export const CREATE_REPLY = gql`
-  mutation CreateReply($content: String!, $repliedTo: String!, $documentID: String!, $isTeacher: Boolean!) {
-    createReply(input: { content: $content, repliedTo: $repliedTo, documentID: $documentID, isTeacher: $isTeacher }) {
+  mutation CreateReply(
+    $content: String!
+    $repliedTo: String!
+    $documentID: String!
+    $isTeacher: Boolean!
+  ) {
+    createReply(
+      input: {
+        content: $content
+        repliedTo: $repliedTo
+        documentID: $documentID
+        isTeacher: $isTeacher
+      }
+    ) {
+      succeeded
+    }
+  }
+`;
+export const CREATE_MESSAGE = gql`
+  mutation CreateMessage(
+    $roomID: ID!
+    $message: String!
+    $isTeacher: Boolean!
+    $ownerID: ID!
+  ) {
+    createMessage(
+      in: {
+        roomID: $roomID
+        message: $message
+        isTeacher: $isTeacher
+        ownerID: $ownerID
+      }
+    ) {
       succeeded
     }
   }
