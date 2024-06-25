@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styles from "./components.module.css";
 import { useQuery } from '@apollo/client';
 import { GET_COMMENTS } from '../GraphQl/Queries';
+import ReplyForm from './ReplyForm';
 
 
 function CommentDetails({comment,userID}) {
@@ -36,6 +37,10 @@ function CommentDetails({comment,userID}) {
         skip: !showReplies,
       });
  
+
+
+   
+    
 
   return (
 
@@ -78,22 +83,7 @@ function CommentDetails({comment,userID}) {
      </div>}
 
    
-     {showResponseForm &&   <div className={styles.replies}>
-     <form onSubmit={()=>{}} style={{marginBottom:"5px"}}>
-            <div className={styles.commentInput}>
-              <input
-            
-                type="text"
-                placeholder="اضافة رد ..."
-                required
-              />
-                <button type="submit">
-              رد
-            </button>
-            </div>
-          
-          </form>
-     </div>}
+     {showResponseForm && <ReplyForm id={comment.id} documentID={comment.documentID}/>}
 
 
     </div>

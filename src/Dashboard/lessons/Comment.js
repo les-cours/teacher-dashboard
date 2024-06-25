@@ -9,7 +9,7 @@ import CommentDetails from "../../components/CommentDetails";
 function Comment({ comment }) {
 
 
-  const [replyContent, setReplyContent] = useState("");
+ 
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
@@ -17,45 +17,6 @@ function Comment({ comment }) {
    setUserId(user.id)
   }, []);
 
-  const [createReplyMutation, { loading: replyLoading, error: replyError }] =
-    useMutation(CREATE_REPLY, {
-      onError: (error) => {
-        console.error("Error creating reply:", error);
-      },
-      onCompleted: () => {
-        setReplyContent("");
-        // setShowResponseForm(false);
-      },
-      refetchQueries: [
-        {
-          query: GET_COMMENTS,
-          variables: {
-            documentID: comment.id,
-            replied: true,
-          },
-        },
-      ],
-    });
-
-  
-
-
-
-  const handleReplySubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await createReplyMutation({
-        variables: {
-          content: replyContent,
-          repliedTo: comment.id,
-          documentID: comment.documentID,
-          isTeacher: true,
-        },
-      });
-    } catch (err) {
-      console.error("Error creating reply:", err);
-    }
-  };
 
   return (
 <div className={styles.comment  }>
