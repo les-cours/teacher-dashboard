@@ -26,6 +26,7 @@ import "./App.css";
 import Document from "./Dashboard/lessons/Document";
 import AboutUs from "./AboutUs";
 import ChatRoom from "./chat/ChatRoom";
+import Home from "./Home";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -90,17 +91,7 @@ function App() {
               <Route
                 path="/home"
                 element={
-                  <div>
-                    <div>
-                      <h1>Teacher Dashboard</h1>
-                      <div>
-                        <h2>Overview</h2>
-                        <p>Number of Students: {4}</p>
-                        <p>Upcoming Events: {4}</p>
-                        <p>Recent Grades: {77}</p>
-                      </div>
-                    </div>
-                  </div>
+            <Home/>
                 }
               />
               <Route path="/chatRoom" element={<ChatRoom />} />
