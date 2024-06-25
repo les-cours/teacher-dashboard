@@ -7,7 +7,9 @@ import { LOAD_MY_CLASSROOMS } from "../GraphQl/Queries";
 const DropdownMenu = () => {
   let { classroomId, chapterId } = useParams();
 
-  const { loading, error, data, refetch } = useQuery(LOAD_MY_CLASSROOMS);
+  const { loading, error, data, refetch } = useQuery(LOAD_MY_CLASSROOMS, {
+    fetchPolicy: "network-only",
+  });
 
   const [chapterVisibility, setChapterVisibility] = useState([]);
   const [lessonVisibility, setLessonVisibility] = useState([]);
@@ -33,8 +35,6 @@ const DropdownMenu = () => {
     setChapterVisibility(updatedVisibility);
   };
 
-
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -56,7 +56,7 @@ const DropdownMenu = () => {
                 <Link
                   to={`classrooms/${classroomId}/addChapter`}
                   className={styles.addChapter}
-                  >
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24px"

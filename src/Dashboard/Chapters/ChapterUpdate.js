@@ -4,8 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import styles from "./chapters.module.css";
 import { LOAD_CHAPTERS } from "../../GraphQl/Queries";
 import Popup from "reactjs-popup";
-import { DELETE_CHAPTER } from "../../GraphQl/Mutations";
-import { UPDATE_CHAPTER } from "../../GraphQl/Mutations"; // Make sure this path is correct
+import { DELETE_CHAPTER, UPDATE_CHAPTER } from "../../GraphQl/Mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,6 +14,7 @@ function ChapterUpdate() {
 
   const { loading, error, data, refetch } = useQuery(LOAD_CHAPTERS, {
     variables: { classRoomID: classroomId },
+    fetchPolicy: 'network-only',
   });
 
   const [chapter, setChapter] = useState(null);
@@ -29,10 +29,8 @@ function ChapterUpdate() {
   const [updateChapter] = useMutation(UPDATE_CHAPTER, {
     onCompleted: () => {
       console.log("Chapter updated successfully.");
-      console.log("Navigating to: ", `/classroom/${classroomId}/${chapterId}`);
-
-      navigate(`/classrooms/${classroomId}/${chapterId}`);
       refetch();
+      navigate(`/classrooms/${classroomId}/${chapterId}`);
     },
     onError: (err) => {
       console.error("Error updating chapter:", err);
@@ -45,7 +43,6 @@ function ChapterUpdate() {
         (item) => item.chapterID === chapterId
       );
       setChapter(foundChapter);
-      console.log(foundChapter.title);
       if (foundChapter) {
         setChapterData({
           title: foundChapter.title,
@@ -86,6 +83,7 @@ function ChapterUpdate() {
           title: chapterData.title,
           arabicTitle: chapterData.arabicTitle,
           description: chapterData.description,
+          arabicDescription: chapterData.arabicDescription,
         },
       });
       setIsEditable(false);
@@ -131,12 +129,7 @@ function ChapterUpdate() {
                   <h2>تأكيد حدف الوحدة</h2>
                   <p>هل أنت متأكد من حدف هده الوحدة</p>
                   <div className={styles.buttonDiv}>
-                    <button
-                     
-                      onClick={() => close()}
-                    >
-                      إلغاء
-                    </button>
+                    <button onClick={() => close()}>إلغاء</button>
                     <button
                       className={styles.delete}
                       onClick={async () => {

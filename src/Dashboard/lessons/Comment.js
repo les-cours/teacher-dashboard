@@ -31,8 +31,8 @@ function Comment({ comment }) {
         console.error("Error creating reply:", error);
       },
       onCompleted: () => {
-        setReplyContent(""); 
-       // setShowResponseForm(false); 
+        setReplyContent("");
+        // setShowResponseForm(false);
       },
       refetchQueries: [
         {
@@ -45,7 +45,12 @@ function Comment({ comment }) {
       ],
     });
 
-  const { loading: queryLoading, error: queryError, data: { comments: replies = [] } = {}, refetch } = useQuery(GET_COMMENTS, {
+  const {
+    loading: queryLoading,
+    error: queryError,
+    data: { comments: replies = [] } = {},
+    refetch,
+  } = useQuery(GET_COMMENTS, {
     variables: {
       documentID: comment.id,
       replied: true,
@@ -69,7 +74,7 @@ function Comment({ comment }) {
           content: replyContent,
           repliedTo: comment.id,
           documentID: comment.documentID,
-          isTeacher: true, 
+          isTeacher: true,
         },
       });
     } catch (err) {
@@ -84,7 +89,10 @@ function Comment({ comment }) {
       </div>
       <div className={styles.commentContent}>
         <div className={styles.commentHeader}>
-          <div>{comment.user.username}</div>
+          <div>
+            <span>{comment.user.firstName} </span> 
+           <span>{comment.user.lastName} </span> 
+          </div>
           <div className={styles.iconsd}>
             {userId === comment.user.id && (
               <button>
@@ -99,12 +107,14 @@ function Comment({ comment }) {
         <div>
           <div className={styles.content}>
             <p>{comment.content}</p>
-            <button onClick={toggleReplies}>
-              {showReplies ? "إخفاء الردود" : "عرض الردود"}
-            </button>
-            <button onClick={toggleResponse}>
-              {showResponseForm ? "إلغاء الرد" : "الرد"}
-            </button>
+            <div>
+              <button onClick={toggleReplies}>
+                {showReplies ? "إخفاء الردود" : "عرض الردود"}
+              </button>
+              <button onClick={toggleResponse}>
+                {showResponseForm ? "إلغاء الرد" : "الرد"}
+              </button>
+            </div>
           </div>
           {showResponseForm && (
             <div className={styles.replyForm}>

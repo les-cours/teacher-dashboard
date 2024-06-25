@@ -15,11 +15,14 @@ function Login({ setConnected }) {
     e.preventDefault();
     console.log(username, password, osname, error);
     try {
-      const response = await axios.post("http://127.0.0.1:3004/teacher-login", {
-        username,
-        password,
-        osname,
-      });
+      const response = await axios.post(
+        "http://127.0.0.1:3004/teacher-login",
+        {
+          username,
+          password,
+          osname,
+        }
+      );
 
       console.log(response.data.user);
 

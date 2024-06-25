@@ -25,6 +25,7 @@ import LiveReservation from "./Live/LiveReservation";
 import "./App.css";
 import Document from "./Dashboard/lessons/Document";
 import AboutUs from "./AboutUs";
+import ChatRoom from "./chat/ChatRoom";
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -36,7 +37,7 @@ const errorLink = onError(({ graphqlErrors, networkError }) => {
 
 const link = from([
   errorLink,
-  new HttpLink({ uri: "http://localhost:9090/graphql" }),
+  new HttpLink({ uri: "http://127.0.0.1:9090/graphql" }),
 ]);
 
 const authLink = setContext((_, { headers }) => {
@@ -102,7 +103,7 @@ function App() {
                   </div>
                 }
               />
-              <Route path="/aboutUs" element={<AboutUs />} />
+              <Route path="/chatRoom" element={<ChatRoom />} />
               <Route path="/contactUs" element={<div>Contact Us</div>} />
               <Route path="/Live" element={<LiveReservation />} />
               <Route path="/" element={<Dashboard />}>

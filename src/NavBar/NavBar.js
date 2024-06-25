@@ -62,8 +62,8 @@ function NavBar({ setConnected }) {
         <Link to="/home" className={styles.link}>
           الرئيسية
         </Link>
-        <Link to="/aboutUs" className={styles.link}>
-          التعليقات
+        <Link to="/chatRoom" className={styles.link}>
+          الدردشة
         </Link>
         <Link to="/contactUs" className={styles.link}>
           تواصل معنا{" "}

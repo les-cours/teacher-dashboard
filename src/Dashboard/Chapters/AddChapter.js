@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { CREATE_CHAPTER } from "../../GraphQl/Mutations";
 import { useMutation } from "@apollo/client";
-import {  useParams } from "react-router-dom";
-import styles from "./chapters.module.css"
+import { useNavigate, useParams } from "react-router-dom";
+import { LOAD_CHAPTERS ,LOAD_MY_CLASSROOMS} from "../../GraphQl/Queries"; // Import the LOAD_CHAPTERS query
+import styles from "./chapters.module.css";
+
 function AddChapter() {
   let { classroomId } = useParams();
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     arabicTitle: "",
@@ -24,7 +26,18 @@ function AddChapter() {
     }
   }, [formData]);
 
-  const [createChapter, { loading: mutationLoading, error: mutationError }] = useMutation(CREATE_CHAPTER,{});
+  const [createChapter, { loading: mutationLoading, error: mutationError }] =
+    useMutation(CREATE_CHAPTER, {
+      refetchQueries: [
+        {
+          query: LOAD_CHAPTERS,
+          variables: { classRoomID: classroomId },
+        },
+        {
+          query: LOAD_MY_CLASSROOMS,
+        },
+      ],
+    });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,11 +60,10 @@ function AddChapter() {
         },
       });
       console.log("Chapter created successfully:", data);
-      // navigate(`/dashboard/classrooms/${classroomId}/${data.createChapter.chapterID}`);
+      navigate(`/classrooms/${classroomId}/${data.createChapter.chapterID}`);
     } catch (error) {
       console.error("Error creating chapter:", error);
     }
-    
   };
 
   return (

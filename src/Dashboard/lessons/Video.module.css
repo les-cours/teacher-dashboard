@@ -33,6 +33,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  width: 100%;
 
 }
 
@@ -49,8 +50,7 @@
 }
 
 .commentContent {
-
-
+width: 100%;
 
 }
 
