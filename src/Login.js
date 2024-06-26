@@ -16,7 +16,7 @@ function Login({ setConnected }) {
     console.log(username, password, osname, error);
     try {
       const response = await axios.post(
-        "http://127.0.0.1:3004/teacher-login",
+        "http://192.168.175.166:3004/teacher-login",
         {
           username,
           password,
@@ -41,7 +41,6 @@ function Login({ setConnected }) {
         email: decodedToken.email,
         avatar: decodedToken.avatar,
       };
-
 
       localStorage.setItem("token", response.data.user.accessToken);
       localStorage.setItem("userInfo", JSON.stringify(userInfo));

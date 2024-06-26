@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { CREATE_LESSON } from "../../GraphQl/Mutations";
 import { useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import styles from './lesson.module.css'
+import styles from './lesson.module.css';
+
 function AddLesson() {
   let { classroomId, chapterId } = useParams();
 
@@ -12,20 +13,8 @@ function AddLesson() {
     arabicTitle: "",
     description: "",
     arabicDescription: "",
-    order : 1,
+    order: "",
   });
-
-  useEffect(() => {
-    if (!formData) {
-      setFormData({
-        title: "",
-        arabicTitle: "",
-        description: "",
-        arabicDescription: "",
-        order: 1,
-      });
-    }
-  }, [formData]);
 
   const [createLesson, { loading: mutationLoading, error: mutationError }] =
     useMutation(CREATE_LESSON);
@@ -34,7 +23,7 @@ function AddLesson() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: name === "order" ? Number(value) : value,
     });
   };
 
@@ -49,7 +38,7 @@ function AddLesson() {
           arabicTitle: formData.arabicTitle,
           description: formData.description,
           order: formData.order,
-          //   arabicDescription: formData.arabicDescription,
+          arabicDescription: formData.arabicDescription,
         },
       });
       console.log("Lesson created successfully:", data);
@@ -61,50 +50,54 @@ function AddLesson() {
 
   return (
     <div className={styles.AddLesson}>
-      
-    <div className={styles.formContainer}>
-    <h3>اضافة درس</h3>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="اسم الدرس"
-          required
-        />
-        <input
-          type="text"
-          name="arabicTitle"
-          value={formData.arabicTitle}
-          onChange={handleChange}
-          placeholder="اسم الدرس باللاتينية"
-          required
-        />
-        <textarea
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          placeholder="وصف الدرس"
-          required
-        />
-        <textarea
-          type="text"
-          name="arabicDescription"
-          value={formData.arabicDescription}
-          onChange={handleChange}
-          placeholder="وصف الدرس باللاتينية"
-          required
-        />
-        <input type="number" value={FormData.order} onChange={handleChange}/>
-        <button type="submit" disabled={mutationLoading}>
-          إضافة
-        </button>
-      </form>
-      {mutationLoading && <p>Loading...</p>}
-      {mutationError && <p>Error: {mutationError.message}</p>}
-    </div>
+      <div className={styles.formContainer}>
+        <h3>اضافة درس</h3>
+        <form onSubmit={handleFormSubmit}>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="اسم الدرس"
+            required
+          />
+          <input
+            type="text"
+            name="arabicTitle"
+            value={formData.arabicTitle}
+            onChange={handleChange}
+            placeholder="اسم الدرس باللاتينية"
+            required
+          />
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="وصف الدرس"
+            required
+          />
+          <textarea
+            name="arabicDescription"
+            value={formData.arabicDescription}
+            onChange={handleChange}
+            placeholder="وصف الدرس باللاتينية"
+            required
+          />
+          <input
+            type="number"
+            name="order"
+            value={formData.order}
+            onChange={handleChange}
+            placeholder="ترتيب الدرس"
+            required
+          />
+          <button type="submit" disabled={mutationLoading}>
+            إضافة
+          </button>
+        </form>
+        {mutationLoading && <p>Loading...</p>}
+        {mutationError && <p>Error: {mutationError.message}</p>}
+      </div>
     </div>
   );
 }

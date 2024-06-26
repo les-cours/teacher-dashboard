@@ -38,7 +38,8 @@ const errorLink = onError(({ graphqlErrors, networkError }) => {
 
 const link = from([
   errorLink,
-  new HttpLink({ uri: "http://127.0.0.1:9090/graphql" }),
+  // new HttpLink({ uri: "http://127.0.0.1:9090/graphql" }),
+  new HttpLink({ uri: "http://192.168.175.166:9090/graphql" }),
 ]);
 
 const authLink = setContext((_, { headers }) => {
@@ -88,12 +89,7 @@ function App() {
         <Routes>
           {connected ? (
             <>
-              <Route
-                path="/home"
-                element={
-            <Home/>
-                }
-              />
+              <Route path="/home" element={<Home />} />
               <Route path="/chatRoom" element={<ChatRoom />} />
               <Route path="/contactUs" element={<div>Contact Us</div>} />
               <Route path="/Live" element={<LiveReservation />} />

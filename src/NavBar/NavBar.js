@@ -11,7 +11,6 @@ function NavBar({ setConnected }) {
   const [isProfileInfoVisible, setProfileInfoVisible] = useState(false);
   const profileRef = useRef(null);
 
-
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.body.classList.toggle("dark-mode");
@@ -45,6 +44,7 @@ function NavBar({ setConnected }) {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
     setConnected(false);
     navigate("/login");
   };
@@ -52,10 +52,9 @@ function NavBar({ setConnected }) {
   return (
     <div className={styles.navBar}>
       <div className={styles.logoDiv}>
-        <Link to="/" style={{all:"unset", cursor:"pointer"}}>
-        <img src={logo} alt="Logo" />
+        <Link to="/" style={{ all: "unset", cursor: "pointer" }}>
+          <img src={logo} alt="Logo" />
         </Link>
-        
       </div>
 
       <div className={styles.linksDiv} style={{ marginLeft: "40px" }}>

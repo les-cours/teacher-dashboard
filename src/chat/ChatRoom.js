@@ -115,7 +115,10 @@ function ChatRoom() {
             dataMessages.room.messages.map((message) => (
               <div key={message.id} className={styles.message}>
                 <p>
-                  <strong>{message.owner.username}</strong>: {message.message}
+                  <strong>
+                    {message.owner.firstName + " " + message.owner.lastName}
+                  </strong>
+                  : {message.message}
                 </p>
                 <small>{parseDate(message.timestamp).toLocaleString()}</small>
               </div>
@@ -141,7 +144,6 @@ function ChatRoom() {
         {dataUsers &&
           dataUsers.room.users.map((user) => (
             <div key={user.id} className={styles.student}>
-
               <div className={styles.avatar}>
                 {user.avatar && user.avatar.includes("<svg") ? (
                   <div dangerouslySetInnerHTML={{ __html: user.avatar }} />
@@ -149,7 +151,7 @@ function ChatRoom() {
                   <img src={user.avatar} alt="Avatar" />
                 )}
               </div>
-              
+
               <div>
                 <p>
                   {user.firstName} {user.lastName}

@@ -76,7 +76,7 @@ export const CREATE_LESSON = gql`
       arabicTitle
       title
       description
-  
+   
     }
   }
 `;

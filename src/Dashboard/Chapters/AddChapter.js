@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { CREATE_CHAPTER } from "../../GraphQl/Mutations";
 import { useMutation } from "@apollo/client";
 import { useNavigate, useParams } from "react-router-dom";
-import { LOAD_CHAPTERS ,LOAD_MY_CLASSROOMS} from "../../GraphQl/Queries"; // Import the LOAD_CHAPTERS query
+import { LOAD_CHAPTERS ,LOAD_MY_CLASSROOMS} from "../../GraphQl/Queries"; 
 import styles from "./chapters.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AddChapter() {
+  const notify = (message) => toast.error(message);
+  const success = (message) => toast.success(message);
   let { classroomId } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -58,15 +62,18 @@ function AddChapter() {
           description: formData.description,
           arabicDescription: formData.arabicDescription,
         },
-      });
+      });success("تمت اضافة الوحدة ");
       console.log("Chapter created successfully:", data);
+      
       navigate(`/classrooms/${classroomId}/${data.createChapter.chapterID}`);
     } catch (error) {
+      notify("خطأ خلال اضافة الوحدة");
       console.error("Error creating chapter:", error);
     }
   };
 
   return (
+    <>
     <div className={styles.AddChapter}>
     
     <div className={styles.formContainer}>
@@ -111,6 +118,10 @@ function AddChapter() {
       {mutationError && <p>Error: {mutationError.message}</p>}
     </div>
     </div>
+
+    <ToastContainer />
+
+    </>
   );
 }
 

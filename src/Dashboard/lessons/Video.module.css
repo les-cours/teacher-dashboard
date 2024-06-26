@@ -11,10 +11,11 @@
   background-color: var(--background-color-dark);
 }
 .videoContainer {
-  height: 600px;
   width: 100%;
-  background-color: yellow;
+}
 
+.videoContainer video {
+  width: 1200px;
 }
 .commentsContainer {
   min-width: none;
@@ -31,9 +32,6 @@
   display: inline-block;
 }
 
-
-
-
 .commentInput {
   margin-bottom: 12px;
   padding: 12px;
@@ -46,7 +44,7 @@
   background-color: var(--primary-color);
 }
 
-.commentInput input{
+.commentInput input {
   all: unset;
   width: 100%;
   display: inline-block;
